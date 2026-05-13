@@ -1,6 +1,3 @@
-# vercel.json
-
-```json
 {
   "cleanUrls": true,
   "trailingSlash": false,
@@ -22,19 +19,3 @@
     }
   ]
 }
-```
-
-## Cấu trúc GitHub
-
-```text
-/
- ├── index.html
- └── vercel.json
-```
-
-## Deploy
-
-1. Push GitHub
-2. Import project vào Vercel
-3. Framework Preset: Other
-4. Deploy
