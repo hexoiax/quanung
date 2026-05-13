@@ -1,0 +1,40 @@
+# vercel.json
+
+```json
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+## Cấu trúc GitHub
+
+```text
+/
+ ├── index.html
+ └── vercel.json
+```
+
+## Deploy
+
+1. Push GitHub
+2. Import project vào Vercel
+3. Framework Preset: Other
+4. Deploy
