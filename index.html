@@ -8,24 +8,34 @@
 
   <style>
 :root {
-  --green-main: #16a34a;
-  --green-light: #22c55e;
-  --green-dark: #064e3b;
-  --green-soft: #ecfdf5;
+  --blue-main: #0284c7;
+  --blue-light: #0ea5e9;
+  --blue-dark: #075985;
+  --blue-deep: #0c4a6e;
+  --blue-soft: #e0f2fe;
+  --blue-soft-2: #f0f9ff;
+
+  --cyan: #06b6d4;
   --orange: #f97316;
   --red: #dc2626;
   --yellow: #facc15;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-500: #6b7280;
-  --gray-700: #374151;
-  --black: #111827;
+
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-700: #334155;
+  --black: #0f172a;
   --white: #ffffff;
-  --shadow-sm: 0 6px 18px rgba(15, 23, 42, 0.08);
-  --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.14);
-  --shadow-green: 0 14px 34px rgba(34, 197, 94, 0.42);
+
+  --radius-sm: 12px;
   --radius: 18px;
+  --radius-lg: 26px;
+
+  --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.14);
+  --shadow-blue: 0 16px 36px rgba(14, 165, 233, 0.38);
 }
 
 * {
@@ -39,14 +49,15 @@ body {
   padding: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at top left, #dcfce7 0, transparent 28%),
-    linear-gradient(180deg, #ffffff 0%, #f8fff9 100%);
+    radial-gradient(circle at top left, #bae6fd 0, transparent 30%),
+    radial-gradient(circle at top right, #cffafe 0, transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
   color: var(--black);
   overflow-x: hidden;
 }
 
 body {
-  padding-top: 44px;
+  padding-top: 46px;
 }
 
 img,
@@ -72,60 +83,68 @@ textarea,
 select {
   width: 100%;
   border: 1px solid var(--gray-200);
-  border-radius: 14px;
-  padding: 13px 14px;
+  border-radius: 15px;
+  padding: 14px 15px;
   font-size: 15px;
   outline: none;
   background: var(--white);
-  transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+  color: var(--black);
+  transition: 0.2s ease;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--green-main);
-  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.14);
+  border-color: var(--blue-main);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.16);
 }
 
 textarea {
-  min-height: 76px;
+  min-height: 82px;
   resize: vertical;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 /* TOP NOTICE */
+
 #topNoticeBar {
   position: fixed;
   inset: 0 0 auto 0;
-  min-height: 44px;
-  background: linear-gradient(90deg, var(--green-light), var(--green-main));
+  min-height: 46px;
+  background: linear-gradient(90deg, var(--blue-light), var(--blue-main), var(--cyan));
   color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 9px 14px;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 900;
   text-align: center;
   z-index: 9999;
-  box-shadow: 0 6px 20px rgba(22, 163, 74, 0.25);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.28);
 }
 
 /* MAIN */
+
 #landingPage {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 18px 16px 90px;
+  padding: 18px 16px 96px;
 }
 
 /* HERO */
+
 #productIntro {
   display: grid;
   grid-template-columns: minmax(0, 44%) minmax(0, 56%);
   gap: 24px;
   align-items: stretch;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(229, 231, 235, 0.8);
-  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(186, 230, 253, 0.9);
+  border-radius: 30px;
   padding: 20px;
   box-shadow: var(--shadow-md);
   backdrop-filter: blur(10px);
@@ -134,9 +153,10 @@ textarea {
 #productMediaBox {
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
-  background: var(--gray-50);
+  border-radius: 26px;
+  background: var(--blue-soft-2);
   box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(186, 230, 253, 0.9);
 }
 
 #hotBadge {
@@ -144,13 +164,13 @@ textarea {
   top: 0;
   left: 0;
   z-index: 5;
-  background: linear-gradient(90deg, #fb923c, var(--orange));
+  background: linear-gradient(90deg, #38bdf8, var(--blue-main));
   color: var(--white);
   padding: 10px 18px;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 950;
   border-radius: 0 0 999px 0;
-  box-shadow: 0 8px 22px rgba(249, 115, 22, 0.35);
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.34);
 }
 
 #bestSellerBadge {
@@ -158,13 +178,13 @@ textarea {
   right: 0;
   bottom: 0;
   z-index: 5;
-  background: linear-gradient(90deg, #ff7a00, #ff4e00);
+  background: linear-gradient(90deg, var(--orange), #fb7185);
   color: var(--white);
   padding: 11px 22px;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 950;
   border-top-left-radius: 40px;
-  box-shadow: -8px -8px 22px rgba(249, 115, 22, 0.22);
+  box-shadow: -8px -8px 24px rgba(249, 115, 22, 0.25);
 }
 
 #productSlider {
@@ -194,18 +214,20 @@ textarea {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  background: var(--gray-100);
 }
 
 .product-slide p {
   margin: 0;
-  padding: 12px 14px 18px;
+  padding: 13px 14px 18px;
   text-align: center;
-  color: var(--green-dark);
-  font-weight: 800;
+  color: var(--blue-dark);
+  font-weight: 900;
   font-size: 15px;
 }
 
 /* PRODUCT INFO */
+
 #productInfoBox {
   display: flex;
   flex-direction: column;
@@ -221,10 +243,10 @@ textarea {
 }
 
 #finalPrice {
-  font-size: clamp(34px, 5vw, 48px);
-  font-weight: 950;
-  color: var(--green-dark);
-  letter-spacing: -1px;
+  font-size: clamp(36px, 5vw, 50px);
+  font-weight: 1000;
+  color: var(--blue-deep);
+  letter-spacing: -1.2px;
 }
 
 #originalPrice {
@@ -236,113 +258,114 @@ textarea {
 #discountText {
   background: #fee2e2;
   color: #b91c1c;
-  padding: 5px 11px;
+  padding: 6px 12px;
   border-radius: 999px;
-  font-weight: 900;
+  font-weight: 950;
 }
 
 #productName {
-  margin: 0 0 8px;
-  color: var(--green-dark);
-  font-size: clamp(19px, 2.8vw, 26px);
+  margin: 0 0 10px;
+  color: var(--blue-deep);
+  font-size: clamp(20px, 2.8vw, 28px);
   line-height: 1.32;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
 }
 
 #ratingBox {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   width: fit-content;
-  margin: 8px 0 12px;
-  padding: 7px 12px;
+  margin: 8px 0 13px;
+  padding: 8px 13px;
   border-radius: 999px;
   background: #fffbeb;
   color: #92400e;
-  font-weight: 800;
+  font-weight: 900;
   font-size: 14px;
+  box-shadow: 0 4px 14px rgba(250, 204, 21, 0.16);
 }
 
 #flashSaleBox {
-  background: linear-gradient(100deg, var(--green-light), var(--green-main));
+  background: linear-gradient(100deg, var(--blue-light), var(--blue-main), var(--cyan));
   color: var(--white);
-  border-radius: 18px;
-  padding: 14px 16px;
+  border-radius: 20px;
+  padding: 15px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  box-shadow: var(--shadow-green);
+  box-shadow: var(--shadow-blue);
   margin: 8px 0 14px;
 }
 
 #flashSaleBox strong {
   font-size: 16px;
-  font-weight: 950;
+  font-weight: 1000;
 }
 
 #flashSaleBox p {
-  margin: 3px 0 0;
-  opacity: .94;
+  margin: 4px 0 0;
+  opacity: 0.94;
   font-size: 13px;
 }
 
 #countdown {
-  min-width: 92px;
+  min-width: 96px;
   text-align: center;
-  background: rgba(255,255,255,.2);
-  border: 1px solid rgba(255,255,255,.24);
-  padding: 8px 10px;
-  border-radius: 12px;
-  font-weight: 950;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 9px 10px;
+  border-radius: 14px;
+  font-weight: 1000;
   letter-spacing: 1px;
 }
 
 #giftBox,
 #noticeText,
 #guaranteeText {
-  border-radius: 16px;
+  border-radius: 17px;
   padding: 13px 14px;
   font-size: 15px;
 }
 
 #giftBox {
-  background: var(--green-soft);
-  border: 1px dashed var(--green-main);
-  color: var(--green-dark);
-  font-weight: 700;
+  background: var(--blue-soft);
+  border: 1px dashed var(--blue-main);
+  color: var(--blue-deep);
+  font-weight: 800;
 }
 
 #noticeText {
   margin-top: 10px;
-  color: var(--green-dark);
+  background: #fff7ed;
+  color: #9a3412;
   font-weight: 850;
-  padding-left: 0;
 }
 
 #openOrderPopup,
 #submitOrder,
 [data-open-order] {
-  background: linear-gradient(90deg, var(--green-light), var(--green-main));
+  background: linear-gradient(90deg, var(--blue-light), var(--blue-main), var(--cyan));
   color: var(--white);
   border-radius: 999px;
   padding: 16px 22px;
   font-size: 18px;
-  font-weight: 950;
-  box-shadow: var(--shadow-green);
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  font-weight: 1000;
+  box-shadow: var(--shadow-blue);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 
 #openOrderPopup {
-  margin-top: 6px;
+  margin-top: 10px;
 }
 
 #openOrderPopup small,
 [data-open-order] small {
   display: block;
   font-size: 13px;
-  font-weight: 700;
-  opacity: .95;
+  font-weight: 750;
+  opacity: 0.96;
   margin-top: 2px;
 }
 
@@ -350,31 +373,32 @@ textarea {
 #submitOrder:hover,
 [data-open-order]:hover {
   transform: translateY(-2px);
-  filter: brightness(1.03);
+  filter: brightness(1.04);
 }
 
 #openOrderPopup:active,
 #submitOrder:active,
 [data-open-order]:active {
-  transform: scale(.97);
+  transform: scale(0.97);
 }
 
 #guaranteeText {
-  margin-top: 12px;
+  margin-top: 13px;
   text-align: center;
-  color: #166534;
+  color: var(--blue-dark);
   font-size: 13px;
   font-style: italic;
-  background: rgba(236, 253, 245, .7);
+  background: rgba(224, 242, 254, 0.78);
 }
 
-/* REVIEW SECTION */
+/* REVIEW + DESCRIPTION */
+
 #reviewDescriptionSection,
 #videoReviewSection {
   margin-top: 22px;
-  background: rgba(255,255,255,.94);
-  border: 1px solid rgba(229, 231, 235, .8);
-  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(186, 230, 253, 0.9);
+  border-radius: 30px;
   padding: 20px;
   box-shadow: var(--shadow-sm);
 }
@@ -391,17 +415,18 @@ textarea {
   flex: 1;
   background: var(--gray-100);
   color: var(--gray-700);
-  border-radius: 14px;
+  border-radius: 15px;
   padding: 13px 12px;
-  font-weight: 900;
+  font-weight: 950;
   font-size: 15px;
-  transition: transform .18s ease, background .18s ease, color .18s ease;
+  transition: 0.18s ease;
 }
 
-#tabHeader button:hover {
+#tabHeader button:hover,
+#tabHeader button[data-active="true"] {
   transform: translateY(-1px);
-  background: var(--green-soft);
-  color: var(--green-dark);
+  background: linear-gradient(90deg, var(--blue-light), var(--blue-main));
+  color: var(--white);
 }
 
 #ratingSummary {
@@ -414,27 +439,28 @@ textarea {
 
 #ratingAverageBox {
   text-align: center;
-  background: var(--green-soft);
-  color: var(--green-dark);
-  border-radius: 18px;
-  padding: 16px;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  border-radius: 20px;
+  padding: 17px;
+  border: 1px solid rgba(14, 165, 233, 0.14);
 }
 
 #averageRating {
   display: block;
-  font-size: 44px;
+  font-size: 46px;
   line-height: 1;
-  font-weight: 950;
+  font-weight: 1000;
 }
 
 #averageStars {
   color: var(--yellow);
-  font-size: 20px;
+  font-size: 21px;
   margin-top: 6px;
 }
 
 #totalReviews {
-  margin: 6px 0 0;
+  margin: 7px 0 0;
   color: var(--gray-500);
   font-size: 13px;
 }
@@ -444,7 +470,7 @@ textarea {
   gap: 8px;
   color: var(--gray-700);
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 850;
 }
 
 #ratingBars div {
@@ -452,7 +478,8 @@ textarea {
   justify-content: space-between;
   background: var(--gray-50);
   border-radius: 999px;
-  padding: 9px 12px;
+  padding: 10px 13px;
+  border: 1px solid var(--gray-200);
 }
 
 #reviewSlider {
@@ -469,18 +496,19 @@ textarea {
   gap: 13px;
   padding: 15px;
   border: 1px solid var(--gray-200);
-  border-radius: 18px;
+  border-radius: 20px;
   background: var(--white);
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
 }
 
 .review-avatar {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  object-fit: cover;
   background: var(--gray-100);
+  object-fit: cover;
   flex-shrink: 0;
+  border: 2px solid var(--blue-soft);
 }
 
 .review-body strong {
@@ -488,10 +516,16 @@ textarea {
   font-size: 15px;
 }
 
+.review-stars {
+  color: var(--yellow);
+  margin-top: 3px;
+  font-size: 14px;
+}
+
 .review-body p {
   margin: 7px 0 10px;
   color: var(--gray-700);
-  line-height: 1.5;
+  line-height: 1.55;
   font-size: 15px;
 }
 
@@ -505,10 +539,10 @@ textarea {
   width: 88px;
   height: 88px;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 15px;
   cursor: zoom-in;
   border: 1px solid var(--gray-200);
-  transition: transform .18s ease, box-shadow .18s ease;
+  transition: 0.18s ease;
 }
 
 .review-images img:hover {
@@ -519,23 +553,22 @@ textarea {
 #loadMoreReviews {
   display: block;
   margin: 18px auto 0;
-  background: var(--green-soft);
-  color: var(--green-dark);
-  border: 1px solid rgba(22, 163, 74, .22);
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  border: 1px solid rgba(2, 132, 199, 0.22);
   border-radius: 999px;
-  padding: 12px 28px;
+  padding: 12px 30px;
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 950;
 }
 
-/* DESCRIPTION */
 #descriptionContent {
   color: var(--gray-700);
-  line-height: 1.65;
+  line-height: 1.68;
 }
 
 #descriptionContent h3 {
-  color: var(--green-dark);
+  color: var(--blue-deep);
   margin-bottom: 8px;
 }
 
@@ -544,6 +577,7 @@ textarea {
 }
 
 /* VIDEO */
+
 #videoReviewSection {
   display: grid;
   grid-template-columns: 62% 38%;
@@ -553,7 +587,7 @@ textarea {
 
 #videoSlider {
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 26px;
   background: #000;
   box-shadow: var(--shadow-md);
 }
@@ -587,7 +621,7 @@ textarea {
 }
 
 #videoTitle {
-  color: var(--green-dark);
+  color: var(--blue-deep);
   font-size: clamp(20px, 3vw, 30px);
   line-height: 1.25;
   margin: 0 0 8px;
@@ -606,20 +640,22 @@ textarea {
 }
 
 #videoDots button {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: var(--gray-100);
-  color: var(--green-dark);
-  font-weight: 900;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+  font-weight: 950;
+  transition: 0.18s ease;
 }
 
 #videoDots button:hover {
-  background: var(--green-main);
+  background: var(--blue-main);
   color: var(--white);
 }
 
 /* FLOATING ORDER */
+
 #floatingOrderBtn {
   position: fixed;
   right: 14px;
@@ -634,32 +670,43 @@ textarea {
 }
 
 @keyframes floatPulse {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 /* PURCHASE POPUP */
+
 #purchasePopup {
   position: fixed;
-  top: 58px;
+  top: 60px;
   right: 14px;
-  max-width: min(330px, calc(100% - 28px));
+  max-width: min(340px, calc(100% - 28px));
   display: flex;
   gap: 10px;
   align-items: center;
   background: var(--white);
   border: 1px solid var(--gray-200);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 10px 12px;
   box-shadow: var(--shadow-md);
   z-index: 9991;
 }
 
 #purchaseAvatar {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: var(--gray-100);
+  background: linear-gradient(135deg, var(--blue-soft), var(--blue-light));
+  object-fit: cover;
+}
+
+#purchasePopup strong {
+  color: var(--blue-deep);
 }
 
 #purchasePopup p {
@@ -668,14 +715,15 @@ textarea {
   font-size: 13px;
 }
 
-/* POPUPS */
+/* POPUP COMMON */
+
 #orderPopup,
 #successPopup,
 #zoomOverlay {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: rgba(15, 23, 42, .58);
+  background: rgba(15, 23, 42, 0.62);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -683,28 +731,28 @@ textarea {
   backdrop-filter: blur(5px);
 }
 
-#orderPopup[hidden],
-#successPopup[hidden],
-#zoomOverlay[hidden],
-[hidden] {
-  display: none !important;
-}
-
 #orderPopupBox,
 #successBox {
-  width: min(440px, 100%);
+  width: min(450px, 100%);
   max-height: 92vh;
   overflow-y: auto;
   background: var(--white);
-  border-radius: 24px;
+  border-radius: 28px;
   padding: 20px;
-  box-shadow: 0 24px 70px rgba(15, 23, 42, .35);
-  animation: popIn .22s ease;
+  box-shadow: 0 26px 76px rgba(15, 23, 42, 0.36);
+  animation: popIn 0.22s ease;
 }
 
 @keyframes popIn {
-  from { opacity: 0; transform: scale(.94) translateY(8px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 #closeOrderPopup {
@@ -712,14 +760,14 @@ textarea {
   background: var(--gray-100);
   color: var(--gray-700);
   border-radius: 999px;
-  padding: 8px 12px;
-  font-weight: 800;
+  padding: 8px 13px;
+  font-weight: 900;
 }
 
 #orderPopupBox h2 {
   clear: both;
   text-align: center;
-  color: var(--green-dark);
+  color: var(--blue-deep);
   margin: 8px 0 18px;
 }
 
@@ -731,9 +779,9 @@ textarea {
 #sizeSection label,
 #quantitySection label {
   display: block;
-  font-weight: 900;
+  font-weight: 950;
   color: var(--black);
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 #sizeSection p {
@@ -753,35 +801,41 @@ textarea {
   border: 1px solid var(--gray-200);
   color: var(--gray-700);
   border-radius: 999px;
-  padding: 10px 14px;
-  font-weight: 900;
-  transition: background .18s ease, color .18s ease, transform .18s ease;
+  padding: 10px 15px;
+  font-weight: 950;
+  transition: 0.18s ease;
 }
 
+#sizeContainer button:hover,
 #sizeContainer button[data-selected="true"] {
-  background: var(--green-main);
+  background: var(--blue-main);
   color: var(--white);
-  border-color: var(--green-main);
-  box-shadow: 0 8px 20px rgba(34, 197, 94, .25);
+  border-color: var(--blue-main);
+  box-shadow: 0 9px 22px rgba(14, 165, 233, 0.26);
 }
 
 #priceSummary {
-  background: var(--green-soft);
-  border: 1px solid rgba(22, 163, 74, .18);
-  border-radius: 18px;
+  background: var(--blue-soft);
+  border: 1px solid rgba(2, 132, 199, 0.18);
+  border-radius: 20px;
   padding: 13px 14px;
 }
 
 #priceSummary p {
   display: flex;
   justify-content: space-between;
-  margin: 5px 0;
-  color: var(--green-dark);
+  margin: 6px 0;
+  color: var(--blue-deep);
 }
 
 #total {
-  font-size: 20px;
+  font-size: 21px;
   color: var(--red);
+}
+
+#submitOrder {
+  margin-top: 4px;
+  width: 100%;
 }
 
 #successBox {
@@ -789,57 +843,68 @@ textarea {
 }
 
 #successIcon {
-  font-size: 54px;
+  font-size: 56px;
 }
 
 #successBox h3 {
-  color: var(--green-main);
+  color: var(--blue-main);
   font-size: 24px;
   margin: 8px 0;
 }
 
 /* ZOOM */
+
 #zoomImage {
-  max-width: min(520px, 94vw);
+  max-width: min(560px, 94vw);
   max-height: 86vh;
   object-fit: contain;
-  border-radius: 18px;
-  box-shadow: 0 24px 70px rgba(0,0,0,.45);
+  border-radius: 20px;
+  box-shadow: 0 26px 76px rgba(0, 0, 0, 0.45);
 }
 
 /* MOBILE */
+
 @media (max-width: 768px) {
   body {
     padding-top: 42px;
   }
 
+  #topNoticeBar {
+    min-height: 42px;
+    font-size: 13px;
+  }
+
   #landingPage {
-    padding: 12px 10px 92px;
+    padding: 12px 10px 94px;
   }
 
   #productIntro {
     grid-template-columns: 1fr;
     gap: 16px;
     padding: 12px;
-    border-radius: 20px;
+    border-radius: 22px;
   }
 
   #productMediaBox {
-    border-radius: 20px;
+    border-radius: 22px;
   }
 
   #finalPrice {
-    font-size: 36px;
+    font-size: 38px;
+  }
+
+  #productName {
+    font-size: 19px;
   }
 
   #flashSaleBox {
-    padding: 12px;
+    padding: 13px;
   }
 
   #reviewDescriptionSection,
   #videoReviewSection {
     padding: 14px;
-    border-radius: 20px;
+    border-radius: 22px;
   }
 
   #ratingSummary {
@@ -869,16 +934,15 @@ textarea {
   }
 
   #videoDots button {
-    width: 28px;
-    height: 28px;
+    width: 29px;
+    height: 29px;
     font-size: 12px;
   }
 
   #floatingOrderBtn {
-    left: auto;
     right: 0;
     bottom: 0;
-    width: 50%;
+    width: 52%;
   }
 
   #floatingOrderBtn button {
@@ -894,7 +958,7 @@ textarea {
   #purchasePopup {
     top: 52px;
     right: 8px;
-    max-width: 70%;
+    max-width: 72%;
     padding: 8px;
   }
 
@@ -906,11 +970,6 @@ textarea {
 @media (max-width: 430px) {
   #topNoticeBar {
     font-size: 12px;
-    min-height: 40px;
-  }
-
-  #productName {
-    font-size: 18px;
   }
 
   #hotBadge,
@@ -927,27 +986,43 @@ textarea {
     min-width: 82px;
     font-size: 13px;
   }
+
+  #tabHeader button {
+    font-size: 13px;
+    padding: 11px 8px;
+  }
+
+  #orderPopupBox,
+  #successBox {
+    border-radius: 22px;
+    padding: 16px;
+  }
 }
-</style>
+  </style>
 </head>
 
 <body>
 
   <!-- =========================
-  PHẦN 1: HTML BODY STRUCTURE
+       TOP BAR
   ========================== -->
-
   <header id="topNoticeBar">
     <span id="topNoticeText"></span>
   </header>
 
+  <!-- =========================
+       FLOATING BUTTON
+  ========================== -->
   <div id="floatingOrderBtn">
     <button type="button" data-open-order>
       <span id="floatingBtnTitle">Đặt hàng ngay</span>
-      <small id="floatingBtnSub">Miễn phí ship toàn quốc</small>
+      <small id="floatingBtnSub"></small>
     </button>
   </div>
 
+  <!-- =========================
+       PURCHASE POPUP
+  ========================== -->
   <div id="purchasePopup">
     <img id="purchaseAvatar" alt="Khách vừa đặt hàng" />
     <div>
@@ -956,8 +1031,12 @@ textarea {
     </div>
   </div>
 
+  <!-- =========================
+       MAIN LANDING
+  ========================== -->
   <main id="landingPage">
 
+    <!-- HERO -->
     <section id="productIntro">
 
       <div id="productMediaBox">
@@ -998,16 +1077,17 @@ textarea {
 
         <button type="button" id="openOrderPopup" data-open-order>
           <span>Đặt hàng ngay</span>
-          <small id="orderBtnSub">Miễn phí ship toàn quốc</small>
+          <small id="orderBtnSub"></small>
         </button>
 
         <div id="guaranteeText">
-          * Miễn phí đổi trả trong vòng 7 ngày 🚚 Giao hàng nhanh trong vòng 2-4 ngày làm việc
+          * Miễn phí đổi trả trong vòng 7 ngày 🚚 Giao hàng nhanh 2-4 ngày
         </div>
 
       </div>
     </section>
 
+    <!-- REVIEW + DESCRIPTION -->
     <section id="reviewDescriptionSection">
 
       <div id="tabHeader">
@@ -1049,6 +1129,7 @@ textarea {
 
     </section>
 
+    <!-- VIDEO REVIEWS -->
     <section id="videoReviewSection">
 
       <div id="videoSlider">
@@ -1058,7 +1139,6 @@ textarea {
       <div id="videoInfoBox">
         <h2 id="videoTitle"></h2>
         <p id="videoDesc"></p>
-
         <div id="videoDots"></div>
       </div>
 
@@ -1066,10 +1146,12 @@ textarea {
 
   </main>
 
+  <!-- IMAGE ZOOM -->
   <div id="zoomOverlay" hidden>
     <img id="zoomImage" alt="Ảnh phóng to" />
   </div>
 
+  <!-- ORDER POPUP -->
   <div id="orderPopup" hidden>
 
     <div id="orderPopupBox">
@@ -1115,6 +1197,7 @@ textarea {
     </div>
   </div>
 
+  <!-- SUCCESS POPUP -->
   <div id="successPopup" hidden>
     <div id="successBox">
       <div id="successIcon">✅</div>
@@ -1123,15 +1206,13 @@ textarea {
     </div>
   </div>
 
-
-  <!-- =========================
-  PHẦN 2: JAVASCRIPT / FUNCTION
-  ========================== -->
-
   <script>
-    const DATA_API_URL = "https://script.google.com/macros/s/AKfycbw7PMVjDBfldZjqDWHw_86xoVJVjwEgrOEJ-XyM0wykKKiZOqUif7Msx3goiFcasPwONQ/exec";
+    /***********************
+     * CONFIG
+     ***********************/
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMfBZnOYvmuT8in55p1oG3PD_BUD_sUUpkvn-dj_eRJiAjGzXa288BppBX45_6wLXkwQ/exec";
+    const DATA_API_URL = "DAN_LINK_API_GOOGLE_SHEET_O_DAY";
+    const SCRIPT_URL = "DAN_LINK_GUI_DON_HANG_CU_O_DAY";
 
     const DEFAULT_DATA = {
       status: "fallback",
@@ -1174,9 +1255,15 @@ textarea {
       setupImageZoom();
       setupCountdown();
       setupOrderSubmit();
+      setupPurchasePopup();
+      setupLoadMoreReviews();
 
       updatePriceSummary();
     }
+
+    /***********************
+     * LOAD DATA FROM API
+     ***********************/
 
     async function loadLandingData() {
       try {
@@ -1194,13 +1281,21 @@ textarea {
           product_info: {
             ...DEFAULT_DATA.product_info,
             ...(data.product_info || {})
-          }
+          },
+          product_media: Array.isArray(data.product_media) ? data.product_media : [],
+          reviews: Array.isArray(data.reviews) ? data.reviews : [],
+          video_reviews: Array.isArray(data.video_reviews) ? data.video_reviews : []
         };
+
       } catch (err) {
-        console.warn("Không lấy được data từ Google Sheet, dùng DEFAULT_DATA", err);
+        console.warn("Không lấy được data từ API, dùng DEFAULT_DATA", err);
         return DEFAULT_DATA;
       }
     }
+
+    /***********************
+     * RENDER PRODUCT INFO
+     ***********************/
 
     function renderProductInfo(info) {
       document.title = info.product_name || "Landing Page";
@@ -1209,22 +1304,32 @@ textarea {
       setText("finalPrice", formatMoney(info.final_price));
       setText("originalPrice", formatMoney(info.original_price));
       setText("discountText", info.discount_text);
+
       setText("ratingText", `${info.rating || "4.9"}/5 •`);
       setText("soldText", info.sold_text);
+
       setText("averageRating", info.rating || "4.9");
       setText("totalReviews", `${info.total_reviews || "0"} đánh giá`);
+
       setText("giftBox", info.gift_text);
       setText("noticeText", info.notice_text);
+
       setText("orderBtnSub", info.shipping_text);
       setText("floatingBtnSub", info.shipping_text);
       setText("topNoticeText", info.shipping_text || "Miễn phí ship toàn quốc");
     }
 
+    /***********************
+     * RENDER MEDIA
+     ***********************/
+
     function renderProductMedia(items) {
       const track = document.getElementById("productSliderTrack");
       if (!track) return;
 
-      if (!items.length) {
+      const activeItems = items.filter(item => isActive(item.active));
+
+      if (!activeItems.length) {
         track.innerHTML = `
           <div class="product-slide">
             <img src="" alt="Ảnh sản phẩm" />
@@ -1234,49 +1339,58 @@ textarea {
         return;
       }
 
-      track.innerHTML = items.map(item => `
-        <div class="product-slide" data-type="${escapeHTML(item.type || "")}">
-          <img 
-            src="${escapeAttr(item.url || "")}" 
-            alt="${escapeAttr(item.alt || "Ảnh sản phẩm")}" 
+      track.innerHTML = activeItems.map(item => `
+        <div class="product-slide" data-type="${escapeAttr(item.type || "image")}">
+          <img
+            src="${escapeAttr(item.url || "")}"
+            alt="${escapeAttr(item.alt || "Ảnh sản phẩm")}"
+            loading="lazy"
           />
           <p>${escapeHTML(item.caption || "")}</p>
         </div>
       `).join("");
     }
 
+    /***********************
+     * RENDER REVIEWS
+     ***********************/
+
     function renderReviews(reviews) {
       const track = document.getElementById("reviewTrack");
       if (!track) return;
 
-      if (!reviews.length) {
+      const activeReviews = reviews.filter(review => isActive(review.active));
+
+      if (!activeReviews.length) {
         track.innerHTML = `<p>Chưa có đánh giá.</p>`;
         return;
       }
 
-      track.innerHTML = reviews.map(review => {
-        const stars = "★★★★★".slice(0, Number(review.stars || 5));
+      track.innerHTML = activeReviews.map(review => {
+        const stars = renderStars(review.stars || 5);
         const images = Array.isArray(review.images) ? review.images : [];
 
         return `
           <article class="review-item">
-            <img 
-              src="${escapeAttr(review.avatar_url || "")}" 
-              alt="${escapeAttr(review.name || "Khách hàng")}" 
+            <img
+              src="${escapeAttr(review.avatar_url || "")}"
+              alt="${escapeAttr(review.name || "Khách hàng")}"
               class="review-avatar"
+              loading="lazy"
             />
 
             <div class="review-body">
               <strong>${escapeHTML(review.name || "Khách hàng")}</strong>
-              <div>${stars}</div>
+              <div class="review-stars">${stars}</div>
               <p>${escapeHTML(review.content || "")}</p>
 
               <div class="review-images">
                 ${images.map(img => `
-                  <img 
-                    src="${escapeAttr(img)}" 
-                    alt="Ảnh đánh giá" 
+                  <img
+                    src="${escapeAttr(img)}"
+                    alt="Ảnh đánh giá"
                     class="zoomable-image"
+                    loading="lazy"
                   />
                 `).join("")}
               </div>
@@ -1286,34 +1400,51 @@ textarea {
       }).join("");
     }
 
+    function renderStars(value) {
+      const count = Math.max(1, Math.min(5, Number(value || 5)));
+      return "★★★★★".slice(0, count);
+    }
+
+    /***********************
+     * RENDER VIDEO REVIEWS
+     ***********************/
+
     function renderVideoReviews(videos) {
       const track = document.getElementById("videoTrack");
       const dots = document.getElementById("videoDots");
+
       if (!track || !dots) return;
 
-      if (!videos.length) {
+      const activeVideos = videos.filter(video => isActive(video.active));
+
+      if (!activeVideos.length) {
         track.innerHTML = `<p>Chưa có video review.</p>`;
         dots.innerHTML = "";
+        setText("videoTitle", "Video review sản phẩm");
+        setText("videoDesc", "");
         return;
       }
 
-      track.innerHTML = videos.map((video, index) => `
+      track.innerHTML = activeVideos.map((video, index) => `
         <div class="video-slide" data-video-index="${index}">
-          <video 
-            src="${escapeAttr(video.video_url || "")}" 
-            playsinline 
-            muted 
-            loop 
-            autoplay
+          <video
+            src="${escapeAttr(video.video_url || "")}"
+            playsinline
+            muted
+            loop
+            preload="metadata"
           ></video>
         </div>
       `).join("");
 
-      dots.innerHTML = videos.map((video, index) => `
-        <button type="button" data-video-dot="${index}">${index + 1}</button>
+      dots.innerHTML = activeVideos.map((video, index) => `
+        <button type="button" data-video-dot="${index}">
+          ${index + 1}
+        </button>
       `).join("");
 
-      setVideoInfo(videos[0]);
+      setVideoInfo(activeVideos[0]);
+      autoPlayFirstVideo();
 
       dots.querySelectorAll("[data-video-dot]").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -1321,10 +1452,18 @@ textarea {
           const target = track.querySelector(`[data-video-index="${index}"]`);
 
           if (target) {
-            target.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+            target.scrollIntoView({
+              behavior: "smooth",
+              inline: "center",
+              block: "nearest"
+            });
           }
 
-          setVideoInfo(videos[index]);
+          pauseAllVideos();
+          const videoEl = target?.querySelector("video");
+          videoEl?.play?.().catch(() => {});
+
+          setVideoInfo(activeVideos[index]);
         });
       });
     }
@@ -1333,6 +1472,21 @@ textarea {
       setText("videoTitle", video?.title || "Khách Review Sản Phẩm");
       setText("videoDesc", video?.desc || "");
     }
+
+    function autoPlayFirstVideo() {
+      const firstVideo = document.querySelector("#videoTrack video");
+      firstVideo?.play?.().catch(() => {});
+    }
+
+    function pauseAllVideos() {
+      document.querySelectorAll("#videoTrack video").forEach(video => {
+        video.pause();
+      });
+    }
+
+    /***********************
+     * DESCRIPTION
+     ***********************/
 
     function renderDescription(info) {
       const box = document.getElementById("descriptionContent");
@@ -1344,12 +1498,23 @@ textarea {
 
         <h3>✨ Điểm nổi bật</h3>
         <ul>
-          <li>Chống nước toàn thân</li>
-          <li>Phù hợp đi ruộng, ao, công trình, bùn nước</li>
-          <li>Dễ vệ sinh, nhanh khô</li>
+          <li>Chống nước, chống bùn, phù hợp môi trường ẩm ướt.</li>
+          <li>Dễ vệ sinh, dễ sử dụng, phù hợp đi ruộng, ao, công trình.</li>
+          <li>Thiết kế liền ủng giúp bảo vệ chân tốt hơn.</li>
+        </ul>
+
+        <h3>🚚 Chính sách</h3>
+        <ul>
+          <li>${escapeHTML(info.shipping_text || "Miễn phí ship toàn quốc")}</li>
+          <li>Kiểm tra hàng trước khi thanh toán.</li>
+          <li>Hỗ trợ đổi trả theo chính sách cửa hàng.</li>
         </ul>
       `;
     }
+
+    /***********************
+     * TABS
+     ***********************/
 
     function setupTabs() {
       const buttons = document.querySelectorAll("[data-tab-btn]");
@@ -1362,9 +1527,18 @@ textarea {
           contents.forEach(content => {
             content.hidden = content.dataset.tabContent !== tab;
           });
+
+          buttons.forEach(b => b.removeAttribute("data-active"));
+          btn.setAttribute("data-active", "true");
         });
       });
+
+      buttons[0]?.setAttribute("data-active", "true");
     }
+
+    /***********************
+     * ORDER POPUP
+     ***********************/
 
     function setupOrderPopup() {
       const popup = document.getElementById("orderPopup");
@@ -1379,11 +1553,22 @@ textarea {
       closeBtn?.addEventListener("click", () => {
         popup.hidden = true;
       });
+
+      popup?.addEventListener("click", e => {
+        if (e.target === popup) {
+          popup.hidden = true;
+        }
+      });
     }
 
+    /***********************
+     * SIZE + QUANTITY
+     ***********************/
+
     function setupSizeOptions() {
-      const sizes = ["36", "37", "38", "39", "40", "41", "42"];
+      const sizes = ["36", "37", "38", "39", "40", "41", "42", "43"];
       const box = document.getElementById("sizeContainer");
+
       if (!box) return;
 
       box.innerHTML = sizes.map(size => `
@@ -1407,6 +1592,7 @@ textarea {
 
     function setupQuantityOptions() {
       const select = document.getElementById("quantitySelect");
+
       if (!select) return;
 
       select.innerHTML = "";
@@ -1419,6 +1605,7 @@ textarea {
       }
 
       select.value = "1";
+      selectedQuantity = 1;
 
       select.addEventListener("change", () => {
         selectedQuantity = Number(select.value || 1);
@@ -1433,15 +1620,20 @@ textarea {
 
       const subtotal = original * qty;
       const total = price * qty;
-      const discount = subtotal - total;
+      const discount = Math.max(0, subtotal - total);
 
       setText("subtotal", formatMoney(subtotal));
       setText("discount", "-" + formatMoney(discount));
       setText("total", formatMoney(total));
     }
 
+    /***********************
+     * SUBMIT ORDER
+     ***********************/
+
     function setupOrderSubmit() {
       const form = document.getElementById("orderForm");
+
       if (!form) return;
 
       form.addEventListener("submit", async e => {
@@ -1462,6 +1654,8 @@ textarea {
           product_name: APP_DATA?.product_info?.product_name || "",
           final_price: APP_DATA?.product_info?.final_price || "",
           total: Number(APP_DATA?.product_info?.final_price || 0) * Number(selectedQuantity || 1),
+          source_url: window.location.href,
+          user_agent: navigator.userAgent,
           created_at: new Date().toISOString()
         };
 
@@ -1476,18 +1670,24 @@ textarea {
           });
 
           showSuccessPopup();
-          form.reset();
-          selectedSize = "";
-          selectedQuantity = 1;
-          setupSizeOptions();
-          setupQuantityOptions();
-          updatePriceSummary();
+          resetOrderForm(form);
 
         } catch (err) {
           console.error("Lỗi gửi đơn:", err);
           alert("Có lỗi khi gửi đơn. Vui lòng thử lại.");
         }
       });
+    }
+
+    function resetOrderForm(form) {
+      form.reset();
+
+      selectedSize = "";
+      selectedQuantity = 1;
+
+      setupSizeOptions();
+      setupQuantityOptions();
+      updatePriceSummary();
     }
 
     function showSuccessPopup() {
@@ -1501,6 +1701,10 @@ textarea {
         if (successPopup) successPopup.hidden = true;
       }, 2500);
     }
+
+    /***********************
+     * IMAGE ZOOM
+     ***********************/
 
     function setupImageZoom() {
       const overlay = document.getElementById("zoomOverlay");
@@ -1521,8 +1725,13 @@ textarea {
       });
     }
 
+    /***********************
+     * COUNTDOWN
+     ***********************/
+
     function setupCountdown() {
       const countdown = document.getElementById("countdown");
+
       if (!countdown) return;
 
       function update() {
@@ -1531,7 +1740,7 @@ textarea {
 
         end.setHours(23, 59, 59, 999);
 
-        const diff = end - now;
+        const diff = Math.max(0, end - now);
 
         const h = Math.floor(diff / 1000 / 60 / 60);
         const m = Math.floor((diff / 1000 / 60) % 60);
@@ -1548,6 +1757,62 @@ textarea {
       setInterval(update, 1000);
     }
 
+    /***********************
+     * PURCHASE POPUP FAKE SOCIAL PROOF
+     ***********************/
+
+    function setupPurchasePopup() {
+      const names = [
+        "Anh Minh",
+        "Chị Hương",
+        "Anh Tuấn",
+        "Chị Lan",
+        "Anh Nam",
+        "Chị Vy"
+      ];
+
+      const texts = [
+        "vừa đặt 1 sản phẩm",
+        "vừa đặt 2 sản phẩm",
+        "vừa để lại số điện thoại",
+        "vừa mua hàng thành công"
+      ];
+
+      const nameEl = document.getElementById("purchaseName");
+      const textEl = document.getElementById("purchaseText");
+
+      if (!nameEl || !textEl) return;
+
+      function updatePopup() {
+        const randomName = names[Math.floor(Math.random() * names.length)];
+        const randomText = texts[Math.floor(Math.random() * texts.length)];
+
+        nameEl.textContent = randomName;
+        textEl.textContent = randomText;
+      }
+
+      updatePopup();
+      setInterval(updatePopup, 7000);
+    }
+
+    /***********************
+     * LOAD MORE REVIEW
+     ***********************/
+
+    function setupLoadMoreReviews() {
+      const btn = document.getElementById("loadMoreReviews");
+
+      if (!btn) return;
+
+      btn.addEventListener("click", () => {
+        alert("Đã hiển thị toàn bộ đánh giá hiện có.");
+      });
+    }
+
+    /***********************
+     * HELPERS
+     ***********************/
+
     function setText(id, value) {
       const el = document.getElementById(id);
       if (el) el.textContent = value || "";
@@ -1559,7 +1824,6 @@ textarea {
 
     function formatMoney(value) {
       const number = Number(value || 0);
-
       return number.toLocaleString("vi-VN") + "đ";
     }
 
@@ -1574,6 +1838,16 @@ textarea {
 
     function escapeAttr(value) {
       return escapeHTML(value);
+    }
+
+    function isActive(value) {
+      return value === true ||
+        value === 1 ||
+        value === "1" ||
+        String(value).toUpperCase() === "TRUE" ||
+        value === undefined ||
+        value === null ||
+        value === "";
     }
   </script>
 
