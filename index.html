@@ -1761,39 +1761,88 @@ textarea {
      * PURCHASE POPUP FAKE SOCIAL PROOF
      ***********************/
 
-    function setupPurchasePopup() {
-      const names = [
-        "Anh Minh",
-        "Chị Hương",
-        "Anh Tuấn",
-        "Chị Lan",
-        "Anh Nam",
-        "Chị Vy"
-      ];
+   function setupPurchasePopup() {
+  const names = [
+    "Anh Minh",
+    "Chị Hương",
+    "Anh Tuấn",
+    "Chị Lan",
+    "Anh Nam",
+    "Chị Vy",
+    "Anh Hoàng",
+    "Chị Trang",
+    "Anh Duy",
+    "Chị Linh"
+  ];
 
-      const texts = [
-        "vừa đặt 1 sản phẩm",
-        "vừa đặt 2 sản phẩm",
-        "vừa để lại số điện thoại",
-        "vừa mua hàng thành công"
-      ];
+  const locations = [
+    "Hà Nội",
+    "TP.HCM",
+    "Đà Nẵng",
+    "Cần Thơ",
+    "Bình Dương",
+    "Đồng Nai",
+    "Hải Phòng",
+    "Nghệ An"
+  ];
 
-      const nameEl = document.getElementById("purchaseName");
-      const textEl = document.getElementById("purchaseText");
+  const actions = [
+    "vừa đặt",
+    "vừa mua",
+    "vừa chốt đơn",
+    "vừa để lại thông tin"
+  ];
 
-      if (!nameEl || !textEl) return;
+  const nameEl = document.getElementById("purchaseName");
+  const textEl = document.getElementById("purchaseText");
+  const popup = document.getElementById("purchasePopup");
 
-      function updatePopup() {
-        const randomName = names[Math.floor(Math.random() * names.length)];
-        const randomText = texts[Math.floor(Math.random() * texts.length)];
+  if (!nameEl || !textEl || !popup) return;
 
-        nameEl.textContent = randomName;
-        textEl.textContent = randomText;
-      }
+  popup.style.opacity = "0";
+  popup.style.transform = "translateY(20px)";
+  popup.style.transition = "all 0.4s ease";
 
-      updatePopup();
-      setInterval(updatePopup, 15000);
-    }
+  function randomBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function showPopup() {
+    const randomName =
+      names[Math.floor(Math.random() * names.length)];
+
+    const randomLocation =
+      locations[Math.floor(Math.random() * locations.length)];
+
+    const randomAction =
+      actions[Math.floor(Math.random() * actions.length)];
+
+    const quantity = randomBetween(1, 3);
+
+    nameEl.textContent = randomName;
+
+    textEl.textContent =
+      `${randomAction} ${quantity} sản phẩm • ${randomLocation}`;
+
+    popup.style.opacity = "1";
+    popup.style.transform = "translateY(0)";
+
+    const visibleTime = randomBetween(5000, 9000);
+
+    setTimeout(() => {
+      popup.style.opacity = "0";
+      popup.style.transform = "translateY(20px)";
+    }, visibleTime);
+
+    const nextDelay = randomBetween(25000, 70000);
+
+    setTimeout(showPopup, nextDelay);
+  }
+
+  const firstDelay = randomBetween(8000, 18000);
+
+  setTimeout(showPopup, firstDelay);
+}
 
     /***********************
      * LOAD MORE REVIEW
