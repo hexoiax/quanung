@@ -7,35 +7,36 @@
   <title id="pageTitle">Landing Page</title>
 
   <style>
-:root {
-  --blue-main: #0284c7;
-  --blue-light: #0ea5e9;
-  --blue-dark: #075985;
-  --blue-deep: #0c4a6e;
-  --blue-soft: #e0f2fe;
-  --blue-soft-2: #f0f9ff;
+    :root {
+  --brand-main: #0284c7;
+  --brand-light: #0ea5e9;
+  --brand-dark: #075985;
+  --brand-deep: #0c4a6e;
 
-  --cyan: #06b6d4;
-  --orange: #f97316;
-  --red: #dc2626;
-  --yellow: #facc15;
+  --trust-green: #16a34a;
+  --cta-orange: #f97316;
+  --sale-red: #dc2626;
+  --star-yellow: #facc15;
 
-  --gray-50: #f8fafc;
-  --gray-100: #f1f5f9;
-  --gray-200: #e2e8f0;
-  --gray-400: #94a3b8;
-  --gray-500: #64748b;
-  --gray-700: #334155;
-  --black: #0f172a;
-  --white: #ffffff;
+  --bg-main: #f8fafc;
+  --bg-soft: #f0f9ff;
+  --bg-card: #ffffff;
+
+  --text-main: #0f172a;
+  --text-soft: #475569;
+  --text-muted: #64748b;
+
+  --border: #e2e8f0;
+  --border-blue: #bae6fd;
 
   --radius-sm: 12px;
-  --radius: 18px;
-  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
 
-  --shadow-sm: 0 8px 20px rgba(15, 23, 42, 0.08);
-  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.14);
-  --shadow-blue: 0 16px 36px rgba(14, 165, 233, 0.38);
+  --shadow-sm: 0 8px 22px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 18px 46px rgba(15, 23, 42, 0.14);
+  --shadow-blue: 0 16px 38px rgba(14, 165, 233, 0.35);
+  --shadow-cta: 0 16px 38px rgba(249, 115, 22, 0.34);
 }
 
 * {
@@ -49,10 +50,10 @@ body {
   padding: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at top left, #bae6fd 0, transparent 30%),
-    radial-gradient(circle at top right, #cffafe 0, transparent 28%),
-    linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
-  color: var(--black);
+    radial-gradient(circle at top left, #e0f2fe 0, transparent 32%),
+    radial-gradient(circle at top right, #dcfce7 0, transparent 26%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg-main) 100%);
+  color: var(--text-main);
   overflow-x: hidden;
 }
 
@@ -82,20 +83,20 @@ input,
 textarea,
 select {
   width: 100%;
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--border);
   border-radius: 15px;
   padding: 14px 15px;
   font-size: 15px;
   outline: none;
-  background: var(--white);
-  color: var(--black);
+  background: #fff;
+  color: var(--text-main);
   transition: 0.2s ease;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--blue-main);
+  border-color: var(--brand-light);
   box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.16);
 }
 
@@ -108,23 +109,98 @@ textarea {
   display: none !important;
 }
 
+/* LOADER */
+
+#pageLoader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background:
+    radial-gradient(circle at top, #e0f2fe 0, #ffffff 42%, #f8fafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--brand-deep);
+}
+
+#pageLoaderInner {
+  width: min(340px, calc(100% - 32px));
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border-blue);
+  border-radius: 28px;
+  padding: 28px 22px;
+  box-shadow: var(--shadow-md);
+}
+
+#loaderSpinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top-color: var(--brand-main);
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  animation: spin 0.8s linear infinite;
+}
+
+#loaderTitle {
+  display: block;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+#loaderSub {
+  margin: 7px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* TOP NOTICE */
 
 #topNoticeBar {
   position: fixed;
   inset: 0 0 auto 0;
-  min-height: 46px;
-  background: linear-gradient(90deg, var(--blue-light), var(--blue-main), var(--cyan));
-  color: var(--white);
+  height: 46px;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--brand-light), var(--brand-main), var(--trust-green));
+  color: #fff;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 9px 14px;
-  font-size: 14px;
-  font-weight: 900;
-  text-align: center;
-  z-index: 9999;
   box-shadow: 0 8px 24px rgba(2, 132, 199, 0.28);
+}
+
+#topNoticeWrapper {
+  height: 24px;
+  overflow: hidden;
+}
+
+#topNoticeText {
+  display: block;
+  font-size: 14px;
+  font-weight: 950;
+  white-space: nowrap;
+  animation: noticeSlideIn 0.55s ease;
+}
+
+@keyframes noticeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* MAIN */
@@ -132,7 +208,7 @@ textarea {
 #landingPage {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 18px 16px 96px;
+  padding: 18px 16px 98px;
 }
 
 /* HERO */
@@ -142,9 +218,9 @@ textarea {
   grid-template-columns: minmax(0, 44%) minmax(0, 56%);
   gap: 24px;
   align-items: stretch;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(186, 230, 253, 0.9);
-  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border-blue);
+  border-radius: 32px;
   padding: 20px;
   box-shadow: var(--shadow-md);
   backdrop-filter: blur(10px);
@@ -153,10 +229,10 @@ textarea {
 #productMediaBox {
   position: relative;
   overflow: hidden;
-  border-radius: 26px;
-  background: var(--blue-soft-2);
+  border-radius: 28px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-blue);
   box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(186, 230, 253, 0.9);
 }
 
 #hotBadge {
@@ -164,8 +240,8 @@ textarea {
   top: 0;
   left: 0;
   z-index: 5;
-  background: linear-gradient(90deg, #38bdf8, var(--blue-main));
-  color: var(--white);
+  background: linear-gradient(90deg, var(--brand-light), var(--brand-main));
+  color: #fff;
   padding: 10px 18px;
   font-size: 14px;
   font-weight: 950;
@@ -178,12 +254,12 @@ textarea {
   right: 0;
   bottom: 0;
   z-index: 5;
-  background: linear-gradient(90deg, var(--orange), #fb7185);
-  color: var(--white);
+  background: linear-gradient(90deg, var(--cta-orange), #ef4444);
+  color: #fff;
   padding: 11px 22px;
   font-size: 14px;
   font-weight: 950;
-  border-top-left-radius: 40px;
+  border-top-left-radius: 42px;
   box-shadow: -8px -8px 24px rgba(249, 115, 22, 0.25);
 }
 
@@ -207,21 +283,22 @@ textarea {
 .product-slide {
   min-width: 100%;
   scroll-snap-align: center;
-  background: var(--white);
+  background: #fff;
 }
 
 .product-slide img {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  background: var(--gray-100);
+  background: #f1f5f9;
 }
 
-.product-slide p {
+.product-slide p,
+.empty-media {
   margin: 0;
   padding: 13px 14px 18px;
   text-align: center;
-  color: var(--blue-dark);
+  color: var(--brand-dark);
   font-weight: 900;
   font-size: 15px;
 }
@@ -243,15 +320,15 @@ textarea {
 }
 
 #finalPrice {
-  font-size: clamp(36px, 5vw, 50px);
+  font-size: clamp(36px, 5vw, 52px);
   font-weight: 1000;
-  color: var(--blue-deep);
+  color: var(--sale-red);
   letter-spacing: -1.2px;
 }
 
 #originalPrice {
   font-size: 16px;
-  color: var(--gray-500);
+  color: var(--text-muted);
   text-decoration: line-through;
 }
 
@@ -265,7 +342,7 @@ textarea {
 
 #productName {
   margin: 0 0 10px;
-  color: var(--blue-deep);
+  color: var(--brand-deep);
   font-size: clamp(20px, 2.8vw, 28px);
   line-height: 1.32;
   letter-spacing: -0.3px;
@@ -287,9 +364,9 @@ textarea {
 }
 
 #flashSaleBox {
-  background: linear-gradient(100deg, var(--blue-light), var(--blue-main), var(--cyan));
-  color: var(--white);
-  border-radius: 20px;
+  background: linear-gradient(100deg, var(--brand-light), var(--brand-main), var(--trust-green));
+  color: #fff;
+  border-radius: 21px;
   padding: 15px 16px;
   display: flex;
   justify-content: space-between;
@@ -314,7 +391,7 @@ textarea {
   min-width: 96px;
   text-align: center;
   background: rgba(255, 255, 255, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 9px 10px;
   border-radius: 14px;
   font-weight: 1000;
@@ -330,10 +407,10 @@ textarea {
 }
 
 #giftBox {
-  background: var(--blue-soft);
-  border: 1px dashed var(--blue-main);
-  color: var(--blue-deep);
-  font-weight: 800;
+  background: #ecfdf5;
+  border: 1px dashed var(--trust-green);
+  color: #166534;
+  font-weight: 850;
 }
 
 #noticeText {
@@ -346,14 +423,14 @@ textarea {
 #openOrderPopup,
 #submitOrder,
 [data-open-order] {
-  background: linear-gradient(90deg, var(--blue-light), var(--blue-main), var(--cyan));
-  color: var(--white);
+  background: linear-gradient(90deg, var(--cta-orange), #ef4444);
+  color: #fff;
   border-radius: 999px;
   padding: 16px 22px;
   font-size: 18px;
   font-weight: 1000;
-  box-shadow: var(--shadow-blue);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  box-shadow: var(--shadow-cta);
+  transition: 0.18s ease;
 }
 
 #openOrderPopup {
@@ -385,7 +462,7 @@ textarea {
 #guaranteeText {
   margin-top: 13px;
   text-align: center;
-  color: var(--blue-dark);
+  color: var(--brand-dark);
   font-size: 13px;
   font-style: italic;
   background: rgba(224, 242, 254, 0.78);
@@ -396,8 +473,8 @@ textarea {
 #reviewDescriptionSection,
 #videoReviewSection {
   margin-top: 22px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(186, 230, 253, 0.9);
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--border-blue);
   border-radius: 30px;
   padding: 20px;
   box-shadow: var(--shadow-sm);
@@ -406,15 +483,15 @@ textarea {
 #tabHeader {
   display: flex;
   gap: 10px;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 12px;
   margin-bottom: 18px;
 }
 
 #tabHeader button {
   flex: 1;
-  background: var(--gray-100);
-  color: var(--gray-700);
+  background: #f1f5f9;
+  color: var(--text-soft);
   border-radius: 15px;
   padding: 13px 12px;
   font-weight: 950;
@@ -425,8 +502,8 @@ textarea {
 #tabHeader button:hover,
 #tabHeader button[data-active="true"] {
   transform: translateY(-1px);
-  background: linear-gradient(90deg, var(--blue-light), var(--blue-main));
-  color: var(--white);
+  background: linear-gradient(90deg, var(--brand-light), var(--brand-main));
+  color: #fff;
 }
 
 #ratingSummary {
@@ -439,8 +516,8 @@ textarea {
 
 #ratingAverageBox {
   text-align: center;
-  background: var(--blue-soft);
-  color: var(--blue-deep);
+  background: var(--bg-soft);
+  color: var(--brand-deep);
   border-radius: 20px;
   padding: 17px;
   border: 1px solid rgba(14, 165, 233, 0.14);
@@ -454,21 +531,21 @@ textarea {
 }
 
 #averageStars {
-  color: var(--yellow);
+  color: var(--star-yellow);
   font-size: 21px;
   margin-top: 6px;
 }
 
 #totalReviews {
   margin: 7px 0 0;
-  color: var(--gray-500);
+  color: var(--text-muted);
   font-size: 13px;
 }
 
 #ratingBars {
   display: grid;
   gap: 8px;
-  color: var(--gray-700);
+  color: var(--text-soft);
   font-size: 14px;
   font-weight: 850;
 }
@@ -476,14 +553,10 @@ textarea {
 #ratingBars div {
   display: flex;
   justify-content: space-between;
-  background: var(--gray-50);
+  background: #f8fafc;
   border-radius: 999px;
   padding: 10px 13px;
-  border: 1px solid var(--gray-200);
-}
-
-#reviewSlider {
-  overflow: hidden;
+  border: 1px solid var(--border);
 }
 
 #reviewTrack {
@@ -495,9 +568,9 @@ textarea {
   display: flex;
   gap: 13px;
   padding: 15px;
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  background: var(--white);
+  background: #fff;
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
 }
 
@@ -505,26 +578,26 @@ textarea {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: var(--gray-100);
+  background: #f1f5f9;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid var(--blue-soft);
+  border: 2px solid #e0f2fe;
 }
 
 .review-body strong {
-  color: var(--black);
+  color: var(--text-main);
   font-size: 15px;
 }
 
 .review-stars {
-  color: var(--yellow);
+  color: var(--star-yellow);
   margin-top: 3px;
   font-size: 14px;
 }
 
 .review-body p {
   margin: 7px 0 10px;
-  color: var(--gray-700);
+  color: var(--text-soft);
   line-height: 1.55;
   font-size: 15px;
 }
@@ -541,7 +614,7 @@ textarea {
   object-fit: cover;
   border-radius: 15px;
   cursor: zoom-in;
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--border);
   transition: 0.18s ease;
 }
 
@@ -553,8 +626,8 @@ textarea {
 #loadMoreReviews {
   display: block;
   margin: 18px auto 0;
-  background: var(--blue-soft);
-  color: var(--blue-deep);
+  background: var(--bg-soft);
+  color: var(--brand-deep);
   border: 1px solid rgba(2, 132, 199, 0.22);
   border-radius: 999px;
   padding: 12px 30px;
@@ -563,17 +636,27 @@ textarea {
 }
 
 #descriptionContent {
-  color: var(--gray-700);
+  color: var(--text-soft);
   line-height: 1.68;
 }
 
-#descriptionContent h3 {
-  color: var(--blue-deep);
-  margin-bottom: 8px;
+.description-block {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #fff;
+  margin-bottom: 12px;
 }
 
-#descriptionContent ul {
-  padding-left: 20px;
+.description-block h3,
+#descriptionContent h3 {
+  color: var(--brand-deep);
+  margin: 0 0 8px;
+}
+
+.description-block p,
+#descriptionContent p {
+  margin: 0;
 }
 
 /* VIDEO */
@@ -621,14 +704,14 @@ textarea {
 }
 
 #videoTitle {
-  color: var(--blue-deep);
+  color: var(--brand-deep);
   font-size: clamp(20px, 3vw, 30px);
   line-height: 1.25;
   margin: 0 0 8px;
 }
 
 #videoDesc {
-  color: var(--gray-700);
+  color: var(--text-soft);
   line-height: 1.55;
 }
 
@@ -643,15 +726,15 @@ textarea {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--blue-soft);
-  color: var(--blue-deep);
+  background: var(--bg-soft);
+  color: var(--brand-deep);
   font-weight: 950;
   transition: 0.18s ease;
 }
 
 #videoDots button:hover {
-  background: var(--blue-main);
-  color: var(--white);
+  background: var(--brand-main);
+  color: #fff;
 }
 
 /* FLOATING ORDER */
@@ -689,8 +772,8 @@ textarea {
   display: flex;
   gap: 10px;
   align-items: center;
-  background: var(--white);
-  border: 1px solid var(--gray-200);
+  background: #fff;
+  border: 1px solid var(--border);
   border-radius: 20px;
   padding: 10px 12px;
   box-shadow: var(--shadow-md);
@@ -701,21 +784,21 @@ textarea {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--blue-soft), var(--blue-light));
+  background: linear-gradient(135deg, #e0f2fe, var(--brand-light));
   object-fit: cover;
 }
 
 #purchasePopup strong {
-  color: var(--blue-deep);
+  color: var(--brand-deep);
 }
 
 #purchasePopup p {
   margin: 2px 0 0;
-  color: var(--gray-500);
+  color: var(--text-muted);
   font-size: 13px;
 }
 
-/* POPUP COMMON */
+/* POPUPS */
 
 #orderPopup,
 #successPopup,
@@ -736,7 +819,7 @@ textarea {
   width: min(450px, 100%);
   max-height: 92vh;
   overflow-y: auto;
-  background: var(--white);
+  background: #fff;
   border-radius: 28px;
   padding: 20px;
   box-shadow: 0 26px 76px rgba(15, 23, 42, 0.36);
@@ -757,8 +840,8 @@ textarea {
 
 #closeOrderPopup {
   float: right;
-  background: var(--gray-100);
-  color: var(--gray-700);
+  background: #f1f5f9;
+  color: var(--text-soft);
   border-radius: 999px;
   padding: 8px 13px;
   font-weight: 900;
@@ -767,7 +850,7 @@ textarea {
 #orderPopupBox h2 {
   clear: both;
   text-align: center;
-  color: var(--blue-deep);
+  color: var(--brand-deep);
   margin: 8px 0 18px;
 }
 
@@ -780,13 +863,13 @@ textarea {
 #quantitySection label {
   display: block;
   font-weight: 950;
-  color: var(--black);
+  color: var(--text-main);
   margin-bottom: 6px;
 }
 
 #sizeSection p {
   margin: 0 0 8px;
-  color: var(--gray-500);
+  color: var(--text-muted);
   font-size: 13px;
 }
 
@@ -797,9 +880,9 @@ textarea {
 }
 
 #sizeContainer button {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  color: var(--gray-700);
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--text-soft);
   border-radius: 999px;
   padding: 10px 15px;
   font-weight: 950;
@@ -808,14 +891,14 @@ textarea {
 
 #sizeContainer button:hover,
 #sizeContainer button[data-selected="true"] {
-  background: var(--blue-main);
-  color: var(--white);
-  border-color: var(--blue-main);
+  background: var(--brand-main);
+  color: #fff;
+  border-color: var(--brand-main);
   box-shadow: 0 9px 22px rgba(14, 165, 233, 0.26);
 }
 
 #priceSummary {
-  background: var(--blue-soft);
+  background: var(--bg-soft);
   border: 1px solid rgba(2, 132, 199, 0.18);
   border-radius: 20px;
   padding: 13px 14px;
@@ -825,12 +908,12 @@ textarea {
   display: flex;
   justify-content: space-between;
   margin: 6px 0;
-  color: var(--blue-deep);
+  color: var(--brand-deep);
 }
 
 #total {
   font-size: 21px;
-  color: var(--red);
+  color: var(--sale-red);
 }
 
 #submitOrder {
@@ -847,9 +930,13 @@ textarea {
 }
 
 #successBox h3 {
-  color: var(--blue-main);
+  color: var(--trust-green);
   font-size: 24px;
   margin: 8px 0;
+}
+
+#successBox p {
+  color: var(--text-soft);
 }
 
 /* ZOOM */
@@ -870,19 +957,19 @@ textarea {
   }
 
   #topNoticeBar {
-    min-height: 42px;
+    height: 42px;
     font-size: 13px;
   }
 
   #landingPage {
-    padding: 12px 10px 94px;
+    padding: 12px 10px 96px;
   }
 
   #productIntro {
     grid-template-columns: 1fr;
     gap: 16px;
     padding: 12px;
-    border-radius: 22px;
+    border-radius: 24px;
   }
 
   #productMediaBox {
@@ -942,7 +1029,7 @@ textarea {
   #floatingOrderBtn {
     right: 0;
     bottom: 0;
-    width: 52%;
+    width: 54%;
   }
 
   #floatingOrderBtn button {
@@ -968,7 +1055,7 @@ textarea {
 }
 
 @media (max-width: 430px) {
-  #topNoticeBar {
+  #topNoticeText {
     font-size: 12px;
   }
 
@@ -998,62 +1085,28 @@ textarea {
     padding: 16px;
   }
 }
-    #topNoticeBar {
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: 46px;
-  overflow: hidden;
-  background: linear-gradient(90deg, #0ea5e9, #0284c7);
-  color: #fff;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px rgba(2,132,199,.25);
-}
-
-#topNoticeWrapper {
-  position: relative;
-  height: 24px;
-  overflow: hidden;
-}
-
-#topNoticeText {
-  display: block;
-  font-size: 14px;
-  font-weight: 900;
-  white-space: nowrap;
-  animation: noticeSlide .55s ease;
-}
-
-@keyframes noticeSlide {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
   </style>
 </head>
 
 <body>
 
-  <!-- =========================
-       TOP BAR
-  ========================== -->
-  <header id="topNoticeBar">
-  <div id="topNoticeWrapper">
-    <span id="topNoticeText"></span>
+  <!-- LOADING SCREEN -->
+  <div id="pageLoader">
+    <div id="pageLoaderInner">
+      <div id="loaderSpinner"></div>
+      <strong id="loaderTitle">Đang tải sản phẩm...</strong>
+      <p id="loaderSub">Vui lòng chờ trong giây lát</p>
+    </div>
   </div>
-</header>
 
-  <!-- =========================
-       FLOATING BUTTON
-  ========================== -->
+  <!-- TOP NOTICE -->
+  <header id="topNoticeBar">
+    <div id="topNoticeWrapper">
+      <span id="topNoticeText"></span>
+    </div>
+  </header>
+
+  <!-- FLOATING ORDER BUTTON -->
   <div id="floatingOrderBtn">
     <button type="button" data-open-order>
       <span id="floatingBtnTitle">Đặt hàng ngay</span>
@@ -1061,9 +1114,7 @@ textarea {
     </button>
   </div>
 
-  <!-- =========================
-       PURCHASE POPUP
-  ========================== -->
+  <!-- PURCHASE POPUP -->
   <div id="purchasePopup">
     <img id="purchaseAvatar" alt="Khách vừa đặt hàng" />
     <div>
@@ -1072,17 +1123,15 @@ textarea {
     </div>
   </div>
 
-  <!-- =========================
-       MAIN LANDING
-  ========================== -->
-  <main id="landingPage">
+  <!-- MAIN -->
+  <main id="landingPage" hidden>
 
     <!-- HERO -->
     <section id="productIntro">
 
       <div id="productMediaBox">
-        <div id="hotBadge">288+ đã mua 24h</div>
-        <div id="bestSellerBadge">Sản phẩm bán chạy</div>
+        <div id="hotBadge"></div>
+        <div id="bestSellerBadge"></div>
 
         <div id="productSlider">
           <div id="productSliderTrack"></div>
@@ -1106,8 +1155,8 @@ textarea {
 
         <div id="flashSaleBox">
           <div>
-            <strong id="flashSaleTitle">🔥 ƯU ĐÃI GIỜ VÀNG</strong>
-            <p id="flashSaleSub">Kết thúc sau:</p>
+            <strong id="flashSaleTitle"></strong>
+            <p id="flashSaleSub"></p>
           </div>
           <span id="countdown">--:--:--</span>
         </div>
@@ -1117,13 +1166,11 @@ textarea {
         <div id="noticeText"></div>
 
         <button type="button" id="openOrderPopup" data-open-order>
-          <span>Đặt hàng ngay</span>
+          <span id="mainOrderBtnText">Đặt hàng ngay</span>
           <small id="orderBtnSub"></small>
         </button>
 
-        <div id="guaranteeText">
-          * Miễn phí đổi trả trong vòng 7 ngày 🚚 Giao hàng nhanh 2-4 ngày
-        </div>
+        <div id="guaranteeText"></div>
 
       </div>
     </section>
@@ -1199,24 +1246,24 @@ textarea {
 
       <button type="button" id="closeOrderPopup">Đóng</button>
 
-      <h2>ĐẶT HÀNG NGAY</h2>
+      <h2 id="orderFormTitle">ĐẶT HÀNG NGAY</h2>
 
       <form id="orderForm">
 
-        <input id="customerName" name="name" type="text" placeholder="Tên khách hàng" required />
+        <input id="customerName" name="name" type="text" required />
 
-        <input id="customerPhone" name="phone" type="tel" placeholder="Số điện thoại" required />
+        <input id="customerPhone" name="phone" type="tel" required />
 
-        <textarea id="customerAddress" name="address" placeholder="Địa chỉ giao hàng" required></textarea>
+        <textarea id="customerAddress" name="address" required></textarea>
 
         <div id="sizeSection">
-          <label>Chọn Size</label>
-          <p>* Hãy chọn theo size giày của bạn</p>
+          <label id="sizeLabel">Chọn Size</label>
+          <p id="sizeNote"></p>
           <div id="sizeContainer"></div>
         </div>
 
         <div id="quantitySection">
-          <label>Số lượng</label>
+          <label id="quantityLabel">Số lượng</label>
           <select id="quantitySelect" name="quantity" required></select>
         </div>
 
@@ -1224,14 +1271,12 @@ textarea {
           <p>Tạm tính: <strong id="subtotal">0đ</strong></p>
           <p>Giảm giá: <strong id="discount">0đ</strong></p>
           <p>Tổng thanh toán: <strong id="total">0đ</strong></p>
-          <p id="freeShipText">🚚 Free Ship toàn quốc</p>
+          <p id="freeShipText"></p>
         </div>
 
-        <textarea id="orderNote" name="note" placeholder="Ghi chú"></textarea>
+        <textarea id="orderNote" name="note"></textarea>
 
-        <button type="submit" id="submitOrder">
-          Gửi đơn hàng
-        </button>
+        <button type="submit" id="submitOrder"></button>
 
       </form>
 
@@ -1242,8 +1287,8 @@ textarea {
   <div id="successPopup" hidden>
     <div id="successBox">
       <div id="successIcon">✅</div>
-      <h3>Đặt hàng thành công!</h3>
-      <p>Cảm ơn bạn đã tin tưởng sản phẩm của cửa hàng.</p>
+      <h3 id="successTitle">Đặt hàng thành công!</h3>
+      <p id="successMessage">Cảm ơn bạn đã tin tưởng sản phẩm của cửa hàng.</p>
     </div>
   </div>
 
@@ -1253,25 +1298,50 @@ textarea {
      ***********************/
 
     const DATA_API_URL = "/api/data";
+
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMfBZnOYvmuT8in55p1oG3PD_BUD_sUUpkvn-dj_eRJiAjGzXa288BppBX45_6wLXkwQ/exec";
 
     const DEFAULT_DATA = {
       status: "fallback",
       product_info: {
-        product_name: "Quần Liền Ủng 2 Lớp Cao Su",
-        final_price: "159000",
-        original_price: "227000",
-        discount_text: "-30%",
+        product_name: "Sản phẩm",
+        final_price: "0",
+        original_price: "0",
+        discount_text: "",
         rating: "4.9",
-        sold_text: "18,450 lượt bán",
-        total_reviews: "8000",
-        gift_text: "🎁 Tặng 1 đôi găng tay lao động",
+        sold_text: "0 lượt bán",
+        total_reviews: "0",
+        gift_text: "",
         shipping_text: "Miễn phí ship toàn quốc",
-        notice_text: "⚠ Lưu ý đặt hàng theo size chân của bạn"
+        notice_text: "",
+        flash_sale_title: "🔥 ƯU ĐÃI GIỜ VÀNG",
+        flash_sale_sub: "Kết thúc sau:",
+        video_section_title: "Khách Review Sản Phẩm",
+        video_section_desc: ""
       },
       product_media: [],
+      product_sizes: [],
       reviews: [],
-      video_reviews: []
+      video_reviews: [],
+      top_notices: [],
+      product_badges: {},
+      product_policies: [],
+      purchase_popups: [],
+      description_blocks: [],
+      order_config: {
+        form_title: "ĐẶT HÀNG NGAY",
+        name_placeholder: "Tên khách hàng",
+        phone_placeholder: "Số điện thoại",
+        address_placeholder: "Địa chỉ giao hàng",
+        size_label: "Chọn Size",
+        size_note: "* Hãy chọn theo size giày của bạn",
+        quantity_label: "Số lượng",
+        note_placeholder: "Ghi chú",
+        submit_text: "Gửi đơn hàng",
+        free_ship_text: "🚚 Free Ship toàn quốc",
+        success_title: "Đặt hàng thành công!",
+        success_message: "Cảm ơn bạn đã tin tưởng sản phẩm của cửa hàng."
+      }
     };
 
     let APP_DATA = DEFAULT_DATA;
@@ -1281,29 +1351,59 @@ textarea {
     document.addEventListener("DOMContentLoaded", initApp);
 
     async function initApp() {
+      showLoader();
+
       APP_DATA = await loadLandingData();
 
       renderProductInfo(APP_DATA.product_info || {});
+      renderBadges(APP_DATA.product_badges || {});
+      renderPolicies(APP_DATA.product_policies || []);
+      renderOrderConfig(APP_DATA.order_config || {});
       renderProductMedia(APP_DATA.product_media || []);
       renderReviews(APP_DATA.reviews || []);
       renderVideoReviews(APP_DATA.video_reviews || []);
-      renderDescription(APP_DATA.product_info || {});
+      renderDescription(APP_DATA.description_blocks || [], APP_DATA.product_info || {});
 
       setupOrderPopup();
-      setupSizeOptions();
+      setupSizeOptions(APP_DATA.product_sizes || []);
       setupQuantityOptions();
       setupTabs();
       setupImageZoom();
       setupCountdown();
       setupOrderSubmit();
-      setupPurchasePopup();
+      setupPurchasePopup(APP_DATA.purchase_popups || []);
+      setupTopNoticeSlider(APP_DATA.top_notices || [], APP_DATA.product_info || {});
       setupLoadMoreReviews();
 
       updatePriceSummary();
+      hideLoader();
     }
 
     /***********************
-     * LOAD DATA FROM API
+     * LOADER
+     ***********************/
+
+    function showLoader() {
+      const loader = document.getElementById("pageLoader");
+      const page = document.getElementById("landingPage");
+
+      if (loader) loader.hidden = false;
+      if (page) page.hidden = true;
+    }
+
+    function hideLoader() {
+      const loader = document.getElementById("pageLoader");
+      const page = document.getElementById("landingPage");
+
+      if (page) page.hidden = false;
+
+      setTimeout(() => {
+        if (loader) loader.hidden = true;
+      }, 250);
+    }
+
+    /***********************
+     * LOAD DATA
      ***********************/
 
     async function loadLandingData() {
@@ -1323,9 +1423,19 @@ textarea {
             ...DEFAULT_DATA.product_info,
             ...(data.product_info || {})
           },
-          product_media: Array.isArray(data.product_media) ? data.product_media : [],
-          reviews: Array.isArray(data.reviews) ? data.reviews : [],
-          video_reviews: Array.isArray(data.video_reviews) ? data.video_reviews : []
+          order_config: {
+            ...DEFAULT_DATA.order_config,
+            ...(data.order_config || {})
+          },
+          product_media: normalizeArray(data.product_media),
+          product_sizes: normalizeArray(data.product_sizes),
+          reviews: normalizeArray(data.reviews),
+          video_reviews: normalizeArray(data.video_reviews),
+          top_notices: normalizeArray(data.top_notices),
+          product_policies: normalizeArray(data.product_policies),
+          purchase_popups: normalizeArray(data.purchase_popups),
+          description_blocks: normalizeArray(data.description_blocks),
+          product_badges: data.product_badges || {}
         };
 
       } catch (err) {
@@ -1335,7 +1445,7 @@ textarea {
     }
 
     /***********************
-     * RENDER PRODUCT INFO
+     * PRODUCT INFO
      ***********************/
 
     function renderProductInfo(info) {
@@ -1348,24 +1458,62 @@ textarea {
 
       setText("ratingText", `${info.rating || "4.9"}/5 •`);
       setText("soldText", info.sold_text);
-
       setText("averageRating", info.rating || "4.9");
       setText("totalReviews", `${info.total_reviews || "0"} đánh giá`);
 
       setText("giftBox", info.gift_text);
       setText("noticeText", info.notice_text);
 
+      setText("flashSaleTitle", info.flash_sale_title || "🔥 ƯU ĐÃI GIỜ VÀNG");
+      setText("flashSaleSub", info.flash_sale_sub || "Kết thúc sau:");
+
       setText("orderBtnSub", info.shipping_text);
       setText("floatingBtnSub", info.shipping_text);
-      setText("topNoticeText", info.shipping_text || "Miễn phí ship toàn quốc");
+    }
+
+    function renderBadges(badges) {
+      setText("hotBadge", badges.hot_badge || "288+ đã mua 24h");
+      setText("bestSellerBadge", badges.best_seller_badge || "Sản phẩm bán chạy");
+    }
+
+    function renderPolicies(policies) {
+      const guarantee = document.getElementById("guaranteeText");
+
+      if (!guarantee) return;
+
+      const activePolicies = policies.filter(item => isActive(item.active));
+
+      if (!activePolicies.length) {
+        guarantee.textContent = "* Miễn phí đổi trả trong vòng 7 ngày 🚚 Giao hàng nhanh 2-4 ngày";
+        return;
+      }
+
+      guarantee.textContent = "* " + activePolicies.map(item => item.text).join(" • ");
+    }
+
+    function renderOrderConfig(config) {
+      setText("orderFormTitle", config.form_title);
+      setText("sizeLabel", config.size_label);
+      setText("sizeNote", config.size_note);
+      setText("quantityLabel", config.quantity_label);
+      setText("submitOrder", config.submit_text);
+      setText("freeShipText", config.free_ship_text);
+      setText("successTitle", config.success_title);
+      setText("successMessage", config.success_message);
+
+      setAttr("customerName", "placeholder", config.name_placeholder);
+      setAttr("customerPhone", "placeholder", config.phone_placeholder);
+      setAttr("customerAddress", "placeholder", config.address_placeholder);
+      setAttr("orderNote", "placeholder", config.note_placeholder);
     }
 
     /***********************
-     * RENDER MEDIA
+     * PRODUCT MEDIA
      ***********************/
 
     function renderProductMedia(items) {
       const track = document.getElementById("productSliderTrack");
+
       if (!track) return;
 
       const activeItems = items.filter(item => isActive(item.active));
@@ -1373,8 +1521,7 @@ textarea {
       if (!activeItems.length) {
         track.innerHTML = `
           <div class="product-slide">
-            <img src="" alt="Ảnh sản phẩm" />
-            <p>Chưa có ảnh sản phẩm</p>
+            <div class="empty-media">Chưa có ảnh sản phẩm</div>
           </div>
         `;
         return;
@@ -1393,11 +1540,12 @@ textarea {
     }
 
     /***********************
-     * RENDER REVIEWS
+     * REVIEWS
      ***********************/
 
     function renderReviews(reviews) {
       const track = document.getElementById("reviewTrack");
+
       if (!track) return;
 
       const activeReviews = reviews.filter(review => isActive(review.active));
@@ -1447,7 +1595,7 @@ textarea {
     }
 
     /***********************
-     * RENDER VIDEO REVIEWS
+     * VIDEO REVIEWS
      ***********************/
 
     function renderVideoReviews(videos) {
@@ -1461,8 +1609,8 @@ textarea {
       if (!activeVideos.length) {
         track.innerHTML = `<p>Chưa có video review.</p>`;
         dots.innerHTML = "";
-        setText("videoTitle", "Video review sản phẩm");
-        setText("videoDesc", "");
+        setText("videoTitle", APP_DATA.product_info.video_section_title || "Video review sản phẩm");
+        setText("videoDesc", APP_DATA.product_info.video_section_desc || "");
         return;
       }
 
@@ -1501,6 +1649,7 @@ textarea {
           }
 
           pauseAllVideos();
+
           const videoEl = target?.querySelector("video");
           videoEl?.play?.().catch(() => {});
 
@@ -1510,8 +1659,8 @@ textarea {
     }
 
     function setVideoInfo(video) {
-      setText("videoTitle", video?.title || "Khách Review Sản Phẩm");
-      setText("videoDesc", video?.desc || "");
+      setText("videoTitle", video?.title || APP_DATA.product_info.video_section_title || "Khách Review Sản Phẩm");
+      setText("videoDesc", video?.desc || APP_DATA.product_info.video_section_desc || "");
     }
 
     function autoPlayFirstVideo() {
@@ -1529,52 +1678,65 @@ textarea {
      * DESCRIPTION
      ***********************/
 
-    function renderDescription(info) {
+    function renderDescription(blocks, info) {
       const box = document.getElementById("descriptionContent");
+
       if (!box) return;
 
-      box.innerHTML = `
-        <h3>📝 Giới thiệu sản phẩm</h3>
-        <p>${escapeHTML(info.product_name || "")}</p>
+      const activeBlocks = blocks.filter(block => isActive(block.active));
 
-        <h3>✨ Điểm nổi bật</h3>
-        <ul>
-          <li>Chống nước, chống bùn, phù hợp môi trường ẩm ướt.</li>
-          <li>Dễ vệ sinh, dễ sử dụng, phù hợp đi ruộng, ao, công trình.</li>
-          <li>Thiết kế liền ủng giúp bảo vệ chân tốt hơn.</li>
-        </ul>
+      if (!activeBlocks.length) {
+        box.innerHTML = `
+          <h3>📝 Giới thiệu sản phẩm</h3>
+          <p>${escapeHTML(info.product_name || "")}</p>
+        `;
+        return;
+      }
 
-        <h3>🚚 Chính sách</h3>
-        <ul>
-          <li>${escapeHTML(info.shipping_text || "Miễn phí ship toàn quốc")}</li>
-          <li>Kiểm tra hàng trước khi thanh toán.</li>
-          <li>Hỗ trợ đổi trả theo chính sách cửa hàng.</li>
-        </ul>
-      `;
+      box.innerHTML = activeBlocks.map(block => `
+        <section class="description-block">
+          <h3>${escapeHTML(block.title || "")}</h3>
+          <p>${escapeHTML(block.content || "")}</p>
+        </section>
+      `).join("");
     }
 
     /***********************
-     * TABS
+     * TOP NOTICE SLIDER
      ***********************/
 
-    function setupTabs() {
-      const buttons = document.querySelectorAll("[data-tab-btn]");
-      const contents = document.querySelectorAll("[data-tab-content]");
+    function setupTopNoticeSlider(notices, info) {
+      const textEl = document.getElementById("topNoticeText");
 
-      buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const tab = btn.dataset.tabBtn;
+      if (!textEl) return;
 
-          contents.forEach(content => {
-            content.hidden = content.dataset.tabContent !== tab;
-          });
+      const list = notices
+        .filter(item => isActive(item.active))
+        .map(item => item.text)
+        .filter(Boolean);
 
-          buttons.forEach(b => b.removeAttribute("data-active"));
-          btn.setAttribute("data-active", "true");
-        });
-      });
+      if (!list.length) {
+        list.push(info.shipping_text || "🚚 Miễn phí ship toàn quốc");
+      }
 
-      buttons[0]?.setAttribute("data-active", "true");
+      let current = 0;
+
+      function updateNotice() {
+        textEl.style.animation = "none";
+        void textEl.offsetWidth;
+
+        textEl.textContent = list[current];
+        textEl.style.animation = "noticeSlideIn 0.55s ease";
+
+        current = current + 1;
+
+        if (current >= list.length) {
+          current = 0;
+        }
+      }
+
+      updateNotice();
+      setInterval(updateNotice, 4200);
     }
 
     /***********************
@@ -1606,15 +1768,30 @@ textarea {
      * SIZE + QUANTITY
      ***********************/
 
-    function setupSizeOptions() {
-      const sizes = ["36", "37", "38", "39", "40", "41", "42", "43"];
+    function setupSizeOptions(sizesFromApi) {
       const box = document.getElementById("sizeContainer");
 
       if (!box) return;
 
+      const activeSizes = sizesFromApi
+        .filter(size => isActive(size.active))
+        .map(size => ({
+          label: size.label || `Size ${size.value}`,
+          value: size.value || size.label
+        }))
+        .filter(size => size.value);
+
+      const fallbackSizes = ["36", "37", "38", "39", "40", "41", "42", "43"]
+        .map(size => ({
+          label: `Size ${size}`,
+          value: size
+        }));
+
+      const sizes = activeSizes.length ? activeSizes : fallbackSizes;
+
       box.innerHTML = sizes.map(size => `
-        <button type="button" data-size="${size}">
-          Size ${size}
+        <button type="button" data-size="${escapeAttr(size.value)}">
+          ${escapeHTML(size.label)}
         </button>
       `).join("");
 
@@ -1726,7 +1903,7 @@ textarea {
       selectedSize = "";
       selectedQuantity = 1;
 
-      setupSizeOptions();
+      setupSizeOptions(APP_DATA.product_sizes || []);
       setupQuantityOptions();
       updatePriceSummary();
     }
@@ -1741,6 +1918,70 @@ textarea {
       setTimeout(() => {
         if (successPopup) successPopup.hidden = true;
       }, 2500);
+    }
+
+    /***********************
+     * PURCHASE POPUP
+     ***********************/
+
+    function setupPurchasePopup(popups) {
+      const nameEl = document.getElementById("purchaseName");
+      const textEl = document.getElementById("purchaseText");
+      const popup = document.getElementById("purchasePopup");
+
+      if (!nameEl || !textEl || !popup) return;
+
+      const activePopups = popups.filter(item => isActive(item.active));
+
+      const fallback = [
+        {
+          name: "Anh Minh",
+          location: "Hà Nội",
+          action: "vừa đặt",
+          quantity_min: 1,
+          quantity_max: 2
+        },
+        {
+          name: "Chị Hương",
+          location: "TP.HCM",
+          action: "vừa mua",
+          quantity_min: 1,
+          quantity_max: 3
+        }
+      ];
+
+      const list = activePopups.length ? activePopups : fallback;
+
+      popup.style.opacity = "0";
+      popup.style.transform = "translateY(20px)";
+      popup.style.transition = "all 0.4s ease";
+
+      function showPopup() {
+        const item = list[Math.floor(Math.random() * list.length)];
+
+        const min = Number(item.quantity_min || 1);
+        const max = Number(item.quantity_max || min);
+        const quantity = randomBetween(min, max);
+
+        nameEl.textContent = item.name || "Khách hàng";
+        textEl.textContent = `${item.action || "vừa đặt"} ${quantity} sản phẩm • ${item.location || ""}`;
+
+        popup.style.opacity = "1";
+        popup.style.transform = "translateY(0)";
+
+        const visibleTime = randomBetween(5000, 9000);
+
+        setTimeout(() => {
+          popup.style.opacity = "0";
+          popup.style.transform = "translateY(20px)";
+        }, visibleTime);
+
+        const nextDelay = randomBetween(28000, 75000);
+        setTimeout(showPopup, nextDelay);
+      }
+
+      const firstDelay = randomBetween(10000, 22000);
+      setTimeout(showPopup, firstDelay);
     }
 
     /***********************
@@ -1799,91 +2040,28 @@ textarea {
     }
 
     /***********************
-     * PURCHASE POPUP FAKE SOCIAL PROOF
+     * TABS
      ***********************/
 
-   function setupPurchasePopup() {
-  const names = [
-    "Anh Minh",
-    "Chị Hương",
-    "Anh Tuấn",
-    "Chị Lan",
-    "Anh Nam",
-    "Chị Vy",
-    "Anh Hoàng",
-    "Chị Trang",
-    "Anh Duy",
-    "Chị Linh"
-  ];
+    function setupTabs() {
+      const buttons = document.querySelectorAll("[data-tab-btn]");
+      const contents = document.querySelectorAll("[data-tab-content]");
 
-  const locations = [
-    "Hà Nội",
-    "TP.HCM",
-    "Đà Nẵng",
-    "Cần Thơ",
-    "Bình Dương",
-    "Đồng Nai",
-    "Hải Phòng",
-    "Nghệ An"
-  ];
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const tab = btn.dataset.tabBtn;
 
-  const actions = [
-    "vừa đặt",
-    "vừa mua",
-    "vừa chốt đơn",
-    "vừa để lại thông tin"
-  ];
+          contents.forEach(content => {
+            content.hidden = content.dataset.tabContent !== tab;
+          });
 
-  const nameEl = document.getElementById("purchaseName");
-  const textEl = document.getElementById("purchaseText");
-  const popup = document.getElementById("purchasePopup");
+          buttons.forEach(b => b.removeAttribute("data-active"));
+          btn.setAttribute("data-active", "true");
+        });
+      });
 
-  if (!nameEl || !textEl || !popup) return;
-
-  popup.style.opacity = "0";
-  popup.style.transform = "translateY(20px)";
-  popup.style.transition = "all 0.4s ease";
-
-  function randomBetween(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  function showPopup() {
-    const randomName =
-      names[Math.floor(Math.random() * names.length)];
-
-    const randomLocation =
-      locations[Math.floor(Math.random() * locations.length)];
-
-    const randomAction =
-      actions[Math.floor(Math.random() * actions.length)];
-
-    const quantity = randomBetween(1, 3);
-
-    nameEl.textContent = randomName;
-
-    textEl.textContent =
-      `${randomAction} ${quantity} sản phẩm • ${randomLocation}`;
-
-    popup.style.opacity = "1";
-    popup.style.transform = "translateY(0)";
-
-    const visibleTime = randomBetween(5000, 9000);
-
-    setTimeout(() => {
-      popup.style.opacity = "0";
-      popup.style.transform = "translateY(20px)";
-    }, visibleTime);
-
-    const nextDelay = randomBetween(25000, 70000);
-
-    setTimeout(showPopup, nextDelay);
-  }
-
-  const firstDelay = randomBetween(8000, 18000);
-
-  setTimeout(showPopup, firstDelay);
-}
+      buttons[0]?.setAttribute("data-active", "true");
+    }
 
     /***********************
      * LOAD MORE REVIEW
@@ -1908,8 +2086,17 @@ textarea {
       if (el) el.textContent = value || "";
     }
 
+    function setAttr(id, attr, value) {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute(attr, value || "");
+    }
+
     function getValue(id) {
       return document.getElementById(id)?.value?.trim() || "";
+    }
+
+    function normalizeArray(value) {
+      return Array.isArray(value) ? value : [];
     }
 
     function formatMoney(value) {
@@ -1939,42 +2126,10 @@ textarea {
         value === null ||
         value === "";
     }
-    function setupTopNoticeSlider() {
-  const notices = [
-    "🚚 Miễn phí ship toàn quốc",
-    "🔥 Giảm giá hôm nay đến 30%",
-    "⚡ Giao hàng nhanh 2-4 ngày",
-    "🎁 Tặng quà cho 100 đơn đầu tiên",
-    "✅ Kiểm tra hàng trước khi thanh toán",
-    "⭐ Hơn 18.000 khách đã mua"
-  ];
 
-  const textEl = document.getElementById("topNoticeText");
-
-  if (!textEl) return;
-
-  let current = 0;
-
-  function updateNotice() {
-    textEl.style.animation = "none";
-
-    void textEl.offsetWidth;
-
-    textEl.textContent = notices[current];
-
-    textEl.style.animation = "noticeSlide .55s ease";
-
-    current++;
-
-    if (current >= notices.length) {
-      current = 0;
+    function randomBetween(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-  }
-
-  updateNotice();
-
-  setInterval(updateNotice, 4000);
-}
   </script>
 
 </body>
