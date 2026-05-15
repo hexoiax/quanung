@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7PMVjDBfldZjqDWHw_86xoVJVjwEgrOEJ-XyM0wykKKiZOqUif7Msx3goiFcasPwONQ/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyd7eV9VF0rgWkOpD-GciwtENOQF6TjQAZUYREFXWH4yYUQPM3amgKb3u_sjr_-VT2mqA/exec";
 
 export default async function handler(req, res) {
   try {
