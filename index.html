@@ -998,6 +998,45 @@ textarea {
     padding: 16px;
   }
 }
+    #topNoticeBar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 46px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #0ea5e9, #0284c7);
+  color: #fff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(2,132,199,.25);
+}
+
+#topNoticeWrapper {
+  position: relative;
+  height: 24px;
+  overflow: hidden;
+}
+
+#topNoticeText {
+  display: block;
+  font-size: 14px;
+  font-weight: 900;
+  white-space: nowrap;
+  animation: noticeSlide .55s ease;
+}
+
+@keyframes noticeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
   </style>
 </head>
 
@@ -1007,8 +1046,10 @@ textarea {
        TOP BAR
   ========================== -->
   <header id="topNoticeBar">
+  <div id="topNoticeWrapper">
     <span id="topNoticeText"></span>
-  </header>
+  </div>
+</header>
 
   <!-- =========================
        FLOATING BUTTON
@@ -1898,6 +1939,42 @@ textarea {
         value === null ||
         value === "";
     }
+    function setupTopNoticeSlider() {
+  const notices = [
+    "🚚 Miễn phí ship toàn quốc",
+    "🔥 Giảm giá hôm nay đến 30%",
+    "⚡ Giao hàng nhanh 2-4 ngày",
+    "🎁 Tặng quà cho 100 đơn đầu tiên",
+    "✅ Kiểm tra hàng trước khi thanh toán",
+    "⭐ Hơn 18.000 khách đã mua"
+  ];
+
+  const textEl = document.getElementById("topNoticeText");
+
+  if (!textEl) return;
+
+  let current = 0;
+
+  function updateNotice() {
+    textEl.style.animation = "none";
+
+    void textEl.offsetWidth;
+
+    textEl.textContent = notices[current];
+
+    textEl.style.animation = "noticeSlide .55s ease";
+
+    current++;
+
+    if (current >= notices.length) {
+      current = 0;
+    }
+  }
+
+  updateNotice();
+
+  setInterval(updateNotice, 4000);
+}
   </script>
 
 </body>
