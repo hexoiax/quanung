@@ -1085,6 +1085,21 @@ textarea {
     padding: 16px;
   }
 }
+    #purchasePopupContent {
+  flex: 1;
+  min-width: 0;
+}
+
+#purchaseProductImage {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+    
   </style>
 </head>
 
@@ -1115,13 +1130,16 @@ textarea {
   </div>
 
   <!-- PURCHASE POPUP -->
-  <div id="purchasePopup">
-    <img id="purchaseAvatar" alt="Khách vừa đặt hàng" />
-    <div>
-      <strong id="purchaseName">Khách hàng</strong>
-      <p id="purchaseText">vừa đặt hàng</p>
-    </div>
+ <div id="purchasePopup">
+  <img id="purchaseAvatar" alt="Khách vừa đặt hàng" />
+
+  <div id="purchasePopupContent">
+    <strong id="purchaseName">Khách hàng</strong>
+    <p id="purchaseText">vừa đặt hàng</p>
   </div>
+
+  <img id="purchaseProductImage" alt="Sản phẩm vừa mua" />
+</div>
 
   <!-- MAIN -->
   <main id="landingPage" hidden>
@@ -1925,64 +1943,80 @@ textarea {
      ***********************/
 
     function setupPurchasePopup(popups) {
-      const nameEl = document.getElementById("purchaseName");
-      const textEl = document.getElementById("purchaseText");
-      const popup = document.getElementById("purchasePopup");
+  const nameEl = document.getElementById("purchaseName");
+  const textEl = document.getElementById("purchaseText");
+  const popup = document.getElementById("purchasePopup");
+  const avatarEl = document.getElementById("purchaseAvatar");
+  const productImgEl = document.getElementById("purchaseProductImage");
 
-      if (!nameEl || !textEl || !popup) return;
+  if (!nameEl || !textEl || !popup) return;
 
-      const activePopups = popups.filter(item => isActive(item.active));
+  const activePopups = popups.filter(item => isActive(item.active));
 
-      const fallback = [
-        {
-          name: "Anh Minh",
-          location: "Hà Nội",
-          action: "vừa đặt",
-          quantity_min: 1,
-          quantity_max: 2
-        },
-        {
-          name: "Chị Hương",
-          location: "TP.HCM",
-          action: "vừa mua",
-          quantity_min: 1,
-          quantity_max: 3
-        }
-      ];
+  const fallback = [
+    {
+      name: "Anh Minh",
+      location: "Hà Nội",
+      action: "vừa đặt",
+      quantity_min: 1,
+      quantity_max: 2,
+      avatar_url: "",
+      product_image: ""
+    },
+    {
+      name: "Chị Hương",
+      location: "TP.HCM",
+      action: "vừa mua",
+      quantity_min: 1,
+      quantity_max: 3,
+      avatar_url: "",
+      product_image: ""
+    }
+  ];
 
-      const list = activePopups.length ? activePopups : fallback;
+  const list = activePopups.length ? activePopups : fallback;
 
+  popup.style.opacity = "0";
+  popup.style.transform = "translateY(20px)";
+  popup.style.transition = "all 0.4s ease";
+
+  function showPopup() {
+    const item = list[Math.floor(Math.random() * list.length)];
+
+    const min = Number(item.quantity_min || 1);
+    const max = Number(item.quantity_max || min);
+    const quantity = randomBetween(min, max);
+
+    nameEl.textContent = item.name || "Khách hàng";
+    textEl.textContent = `${item.action || "vừa đặt"} ${quantity} sản phẩm • ${item.location || ""}`;
+
+    if (avatarEl) {
+      avatarEl.src = item.avatar_url || "";
+      avatarEl.hidden = !item.avatar_url;
+    }
+
+    if (productImgEl) {
+      productImgEl.src = item.product_image || "";
+      productImgEl.hidden = !item.product_image;
+    }
+
+    popup.style.opacity = "1";
+    popup.style.transform = "translateY(0)";
+
+    const visibleTime = randomBetween(5000, 9000);
+
+    setTimeout(() => {
       popup.style.opacity = "0";
       popup.style.transform = "translateY(20px)";
-      popup.style.transition = "all 0.4s ease";
+    }, visibleTime);
 
-      function showPopup() {
-        const item = list[Math.floor(Math.random() * list.length)];
+    const nextDelay = randomBetween(28000, 75000);
+    setTimeout(showPopup, nextDelay);
+  }
 
-        const min = Number(item.quantity_min || 1);
-        const max = Number(item.quantity_max || min);
-        const quantity = randomBetween(min, max);
-
-        nameEl.textContent = item.name || "Khách hàng";
-        textEl.textContent = `${item.action || "vừa đặt"} ${quantity} sản phẩm • ${item.location || ""}`;
-
-        popup.style.opacity = "1";
-        popup.style.transform = "translateY(0)";
-
-        const visibleTime = randomBetween(5000, 9000);
-
-        setTimeout(() => {
-          popup.style.opacity = "0";
-          popup.style.transform = "translateY(20px)";
-        }, visibleTime);
-
-        const nextDelay = randomBetween(28000, 75000);
-        setTimeout(showPopup, nextDelay);
-      }
-
-      const firstDelay = randomBetween(10000, 22000);
-      setTimeout(showPopup, firstDelay);
-    }
+  const firstDelay = randomBetween(10000, 22000);
+  setTimeout(showPopup, firstDelay);
+}
 
     /***********************
      * IMAGE ZOOM
