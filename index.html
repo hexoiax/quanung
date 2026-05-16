@@ -1101,11 +1101,11 @@ textarea {
 }
     
   </style>
+
 </head>
 
 <body>
 
-  <!-- LOADING SCREEN -->
   <div id="pageLoader">
     <div id="pageLoaderInner">
       <div id="loaderSpinner"></div>
@@ -1114,14 +1114,12 @@ textarea {
     </div>
   </div>
 
-  <!-- TOP NOTICE -->
   <header id="topNoticeBar">
     <div id="topNoticeWrapper">
       <span id="topNoticeText"></span>
     </div>
   </header>
 
-  <!-- FLOATING ORDER BUTTON -->
   <div id="floatingOrderBtn">
     <button type="button" data-open-order>
       <span id="floatingBtnTitle">Đặt hàng ngay</span>
@@ -1129,22 +1127,19 @@ textarea {
     </button>
   </div>
 
-  <!-- PURCHASE POPUP -->
- <div id="purchasePopup">
-  <img id="purchaseAvatar" alt="Khách vừa đặt hàng" />
+  <div id="purchasePopup">
+    <img id="purchaseAvatar" alt="Khách vừa đặt hàng" />
 
-  <div id="purchasePopupContent">
-    <strong id="purchaseName">Khách hàng</strong>
-    <p id="purchaseText">vừa đặt hàng</p>
+    <div id="purchasePopupContent">
+      <strong id="purchaseName">Khách hàng</strong>
+      <p id="purchaseText">vừa đặt hàng</p>
+    </div>
+
+    <img id="purchaseProductImage" alt="Sản phẩm vừa mua" />
   </div>
 
-  <img id="purchaseProductImage" alt="Sản phẩm vừa mua" />
-</div>
-
-  <!-- MAIN -->
   <main id="landingPage" hidden>
 
-    <!-- HERO -->
     <section id="productIntro">
 
       <div id="productMediaBox">
@@ -1180,7 +1175,6 @@ textarea {
         </div>
 
         <div id="giftBox"></div>
-
         <div id="noticeText"></div>
 
         <button type="button" id="openOrderPopup" data-open-order>
@@ -1193,7 +1187,6 @@ textarea {
       </div>
     </section>
 
-    <!-- REVIEW + DESCRIPTION -->
     <section id="reviewDescriptionSection">
 
       <div id="tabHeader">
@@ -1223,9 +1216,7 @@ textarea {
           <div id="reviewTrack"></div>
         </div>
 
-        <button type="button" id="loadMoreReviews">
-          Xem thêm
-        </button>
+        <button type="button" id="loadMoreReviews">Xem thêm</button>
 
       </div>
 
@@ -1235,7 +1226,6 @@ textarea {
 
     </section>
 
-    <!-- VIDEO REVIEWS -->
     <section id="videoReviewSection">
 
       <div id="videoSlider">
@@ -1252,14 +1242,11 @@ textarea {
 
   </main>
 
-  <!-- IMAGE ZOOM -->
   <div id="zoomOverlay" hidden>
     <img id="zoomImage" alt="Ảnh phóng to" />
   </div>
 
-  <!-- ORDER POPUP -->
   <div id="orderPopup" hidden>
-
     <div id="orderPopupBox">
 
       <button type="button" id="closeOrderPopup">Đóng</button>
@@ -1269,9 +1256,7 @@ textarea {
       <form id="orderForm">
 
         <input id="customerName" name="name" type="text" required />
-
         <input id="customerPhone" name="phone" type="tel" required />
-
         <textarea id="customerAddress" name="address" required></textarea>
 
         <div id="sizeSection">
@@ -1301,7 +1286,6 @@ textarea {
     </div>
   </div>
 
-  <!-- SUCCESS POPUP -->
   <div id="successPopup" hidden>
     <div id="successBox">
       <div id="successIcon">✅</div>
@@ -1311,13 +1295,8 @@ textarea {
   </div>
 
   <script>
-    /***********************
-     * CONFIG
-     ***********************/
-
     const DATA_API_URL = "/api/data";
-
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_RNKAfWzLAM4GxPa-QwZOeKo9biYyUwt7fiiyYNtOt0WodXD3mvLNaYqc9_bb-VVw/exec";
+    const ORDER_API_URL = "/api/order";
 
     const DEFAULT_DATA = {
       status: "fallback",
@@ -1397,10 +1376,6 @@ textarea {
       hideLoader();
     }
 
-    /***********************
-     * LOADER
-     ***********************/
-
     function showLoader() {
       const loader = document.getElementById("pageLoader");
       const page = document.getElementById("landingPage");
@@ -1420,14 +1395,19 @@ textarea {
       }, 250);
     }
 
-    /***********************
-     * LOAD DATA
-     ***********************/
-
     async function loadLandingData() {
       try {
-        const url = DATA_API_URL + "?v=" + Date.now();
-        const res = await fetch(url);
+        const res = await fetch(DATA_API_URL, {
+          method: "GET",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error("Cannot fetch /api/data");
+        }
+
         const data = await res.json();
 
         if (!data || data.status !== "success") {
@@ -1457,14 +1437,10 @@ textarea {
         };
 
       } catch (err) {
-        console.warn("Không lấy được data từ API, dùng DEFAULT_DATA", err);
+        console.warn("Không lấy được data từ /api/data, dùng DEFAULT_DATA", err);
         return DEFAULT_DATA;
       }
     }
-
-    /***********************
-     * PRODUCT INFO
-     ***********************/
 
     function renderProductInfo(info) {
       document.title = info.product_name || "Landing Page";
@@ -1496,7 +1472,6 @@ textarea {
 
     function renderPolicies(policies) {
       const guarantee = document.getElementById("guaranteeText");
-
       if (!guarantee) return;
 
       const activePolicies = policies.filter(item => isActive(item.active));
@@ -1525,13 +1500,8 @@ textarea {
       setAttr("orderNote", "placeholder", config.note_placeholder);
     }
 
-    /***********************
-     * PRODUCT MEDIA
-     ***********************/
-
     function renderProductMedia(items) {
       const track = document.getElementById("productSliderTrack");
-
       if (!track) return;
 
       const activeItems = items.filter(item => isActive(item.active));
@@ -1545,25 +1515,21 @@ textarea {
         return;
       }
 
-      track.innerHTML = activeItems.map(item => `
+      track.innerHTML = activeItems.map((item, index) => `
         <div class="product-slide" data-type="${escapeAttr(item.type || "image")}">
           <img
             src="${escapeAttr(item.url || "")}"
             alt="${escapeAttr(item.alt || "Ảnh sản phẩm")}"
-            loading="lazy"
+            loading="${index === 0 ? "eager" : "lazy"}"
+            decoding="async"
           />
           <p>${escapeHTML(item.caption || "")}</p>
         </div>
       `).join("");
     }
 
-    /***********************
-     * REVIEWS
-     ***********************/
-
     function renderReviews(reviews) {
       const track = document.getElementById("reviewTrack");
-
       if (!track) return;
 
       const activeReviews = reviews.filter(review => isActive(review.active));
@@ -1584,6 +1550,7 @@ textarea {
               alt="${escapeAttr(review.name || "Khách hàng")}"
               class="review-avatar"
               loading="lazy"
+              decoding="async"
             />
 
             <div class="review-body">
@@ -1598,6 +1565,7 @@ textarea {
                     alt="Ảnh đánh giá"
                     class="zoomable-image"
                     loading="lazy"
+                    decoding="async"
                   />
                 `).join("")}
               </div>
@@ -1611,10 +1579,6 @@ textarea {
       const count = Math.max(1, Math.min(5, Number(value || 5)));
       return "★★★★★".slice(0, count);
     }
-
-    /***********************
-     * VIDEO REVIEWS
-     ***********************/
 
     function renderVideoReviews(videos) {
       const track = document.getElementById("videoTrack");
@@ -1651,7 +1615,6 @@ textarea {
       `).join("");
 
       setVideoInfo(activeVideos[0]);
-      autoPlayFirstVideo();
 
       dots.querySelectorAll("[data-video-dot]").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -1681,24 +1644,14 @@ textarea {
       setText("videoDesc", video?.desc || APP_DATA.product_info.video_section_desc || "");
     }
 
-    function autoPlayFirstVideo() {
-      const firstVideo = document.querySelector("#videoTrack video");
-      firstVideo?.play?.().catch(() => {});
-    }
-
     function pauseAllVideos() {
       document.querySelectorAll("#videoTrack video").forEach(video => {
         video.pause();
       });
     }
 
-    /***********************
-     * DESCRIPTION
-     ***********************/
-
     function renderDescription(blocks, info) {
       const box = document.getElementById("descriptionContent");
-
       if (!box) return;
 
       const activeBlocks = blocks.filter(block => isActive(block.active));
@@ -1719,13 +1672,8 @@ textarea {
       `).join("");
     }
 
-    /***********************
-     * TOP NOTICE SLIDER
-     ***********************/
-
     function setupTopNoticeSlider(notices, info) {
       const textEl = document.getElementById("topNoticeText");
-
       if (!textEl) return;
 
       const list = notices
@@ -1748,18 +1696,12 @@ textarea {
 
         current = current + 1;
 
-        if (current >= list.length) {
-          current = 0;
-        }
+        if (current >= list.length) current = 0;
       }
 
       updateNotice();
       setInterval(updateNotice, 4200);
     }
-
-    /***********************
-     * ORDER POPUP
-     ***********************/
 
     function setupOrderPopup() {
       const popup = document.getElementById("orderPopup");
@@ -1782,13 +1724,8 @@ textarea {
       });
     }
 
-    /***********************
-     * SIZE + QUANTITY
-     ***********************/
-
     function setupSizeOptions(sizesFromApi) {
       const box = document.getElementById("sizeContainer");
-
       if (!box) return;
 
       const activeSizes = sizesFromApi
@@ -1828,7 +1765,6 @@ textarea {
 
     function setupQuantityOptions() {
       const select = document.getElementById("quantitySelect");
-
       if (!select) return;
 
       select.innerHTML = "";
@@ -1863,13 +1799,8 @@ textarea {
       setText("total", formatMoney(total));
     }
 
-    /***********************
-     * SUBMIT ORDER
-     ***********************/
-
     function setupOrderSubmit() {
       const form = document.getElementById("orderForm");
-
       if (!form) return;
 
       form.addEventListener("submit", async e => {
@@ -1878,6 +1809,14 @@ textarea {
         if (!selectedSize) {
           alert("Vui lòng chọn size.");
           return;
+        }
+
+        const submitBtn = document.getElementById("submitOrder");
+        const oldText = submitBtn?.textContent || "Gửi đơn hàng";
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Đang gửi đơn...";
         }
 
         const payload = {
@@ -1896,14 +1835,20 @@ textarea {
         };
 
         try {
-          await fetch(SCRIPT_URL, {
+          const res = await fetch(ORDER_API_URL, {
             method: "POST",
-            mode: "no-cors",
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "Accept": "application/json"
             },
             body: JSON.stringify(payload)
           });
+
+          const result = await res.json();
+
+          if (!res.ok || result.status !== "success") {
+            throw new Error(result.message || "Order API error");
+          }
 
           showSuccessPopup();
           resetOrderForm(form);
@@ -1911,6 +1856,11 @@ textarea {
         } catch (err) {
           console.error("Lỗi gửi đơn:", err);
           alert("Có lỗi khi gửi đơn. Vui lòng thử lại.");
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = oldText;
+          }
         }
       });
     }
@@ -1938,89 +1888,81 @@ textarea {
       }, 2500);
     }
 
-    /***********************
-     * PURCHASE POPUP
-     ***********************/
-
     function setupPurchasePopup(popups) {
-  const nameEl = document.getElementById("purchaseName");
-  const textEl = document.getElementById("purchaseText");
-  const popup = document.getElementById("purchasePopup");
-  const avatarEl = document.getElementById("purchaseAvatar");
-  const productImgEl = document.getElementById("purchaseProductImage");
+      const nameEl = document.getElementById("purchaseName");
+      const textEl = document.getElementById("purchaseText");
+      const popup = document.getElementById("purchasePopup");
+      const avatarEl = document.getElementById("purchaseAvatar");
+      const productImgEl = document.getElementById("purchaseProductImage");
 
-  if (!nameEl || !textEl || !popup) return;
+      if (!nameEl || !textEl || !popup) return;
 
-  const activePopups = popups.filter(item => isActive(item.active));
+      const activePopups = popups.filter(item => isActive(item.active));
 
-  const fallback = [
-    {
-      name: "Anh Minh",
-      location: "Hà Nội",
-      action: "vừa đặt",
-      quantity_min: 1,
-      quantity_max: 2,
-      avatar_url: "",
-      product_image: ""
-    },
-    {
-      name: "Chị Hương",
-      location: "TP.HCM",
-      action: "vừa mua",
-      quantity_min: 1,
-      quantity_max: 3,
-      avatar_url: "",
-      product_image: ""
-    }
-  ];
+      const fallback = [
+        {
+          name: "Anh Minh",
+          location: "Hà Nội",
+          action: "vừa đặt",
+          quantity_min: 1,
+          quantity_max: 2,
+          avatar_url: "",
+          product_image: ""
+        },
+        {
+          name: "Chị Hương",
+          location: "TP.HCM",
+          action: "vừa mua",
+          quantity_min: 1,
+          quantity_max: 3,
+          avatar_url: "",
+          product_image: ""
+        }
+      ];
 
-  const list = activePopups.length ? activePopups : fallback;
+      const list = activePopups.length ? activePopups : fallback;
 
-  popup.style.opacity = "0";
-  popup.style.transform = "translateY(20px)";
-  popup.style.transition = "all 0.4s ease";
-
-  function showPopup() {
-    const item = list[Math.floor(Math.random() * list.length)];
-
-    const min = Number(item.quantity_min || 1);
-    const max = Number(item.quantity_max || min);
-    const quantity = randomBetween(min, max);
-
-    nameEl.textContent = item.name || "Khách hàng";
-    textEl.textContent = `${item.action || "vừa đặt"} ${quantity} sản phẩm • ${item.location || ""}`;
-
-    if (avatarEl) {
-      avatarEl.src = item.avatar_url || "";
-      avatarEl.hidden = !item.avatar_url;
-    }
-
-    if (productImgEl) {
-      productImgEl.src = item.product_image || "";
-      productImgEl.hidden = !item.product_image;
-    }
-
-    popup.style.opacity = "1";
-    popup.style.transform = "translateY(0)";
-
-    const visibleTime = randomBetween(5000, 9000);
-
-    setTimeout(() => {
       popup.style.opacity = "0";
       popup.style.transform = "translateY(20px)";
-    }, visibleTime);
+      popup.style.transition = "all 0.4s ease";
 
-    const nextDelay = randomBetween(28000, 75000);
-    setTimeout(showPopup, nextDelay);
-  }
+      function showPopup() {
+        const item = list[Math.floor(Math.random() * list.length)];
 
-  const firstDelay = randomBetween(10000, 22000);
-  setTimeout(showPopup, firstDelay);
-}
+        const min = Number(item.quantity_min || 1);
+        const max = Number(item.quantity_max || min);
+        const quantity = randomBetween(min, max);
 
-    /***********************
-     * IMAGE ZOOM
-     ***********************/
+        nameEl.textContent = item.name || "Khách hàng";
+        textEl.textContent = `${item.action || "vừa đặt"} ${quantity} sản phẩm • ${item.location || ""}`;
+
+        if (avatarEl) {
+          avatarEl.src = item.avatar_url || "";
+          avatarEl.hidden = !item.avatar_url;
+        }
+
+        if (productImgEl) {
+          productImgEl.src = item.product_image || "";
+          productImgEl.hidden = !item.product_image;
+        }
+
+        popup.style.opacity = "1";
+        popup.style.transform = "translateY(0)";
+
+        const visibleTime = randomBetween(5000, 9000);
+
+        setTimeout(() => {
+          popup.style.opacity = "0";
+          popup.style.transform = "translateY(20px)";
+        }, visibleTime);
+
+        const nextDelay = randomBetween(28000, 75000);
+        setTimeout(showPopup, nextDelay);
+      }
+
+      const firstDelay = randomBetween(10000, 22000);
+      setTimeout(showPopup, firstDelay);
+    }
 
     function setupImageZoom() {
       const overlay = document.getElementById("zoomOverlay");
@@ -2041,13 +1983,8 @@ textarea {
       });
     }
 
-    /***********************
-     * COUNTDOWN
-     ***********************/
-
     function setupCountdown() {
       const countdown = document.getElementById("countdown");
-
       if (!countdown) return;
 
       function update() {
@@ -2073,10 +2010,6 @@ textarea {
       setInterval(update, 1000);
     }
 
-    /***********************
-     * TABS
-     ***********************/
-
     function setupTabs() {
       const buttons = document.querySelectorAll("[data-tab-btn]");
       const contents = document.querySelectorAll("[data-tab-content]");
@@ -2097,23 +2030,14 @@ textarea {
       buttons[0]?.setAttribute("data-active", "true");
     }
 
-    /***********************
-     * LOAD MORE REVIEW
-     ***********************/
-
     function setupLoadMoreReviews() {
       const btn = document.getElementById("loadMoreReviews");
-
       if (!btn) return;
 
       btn.addEventListener("click", () => {
         alert("Đã hiển thị toàn bộ đánh giá hiện có.");
       });
     }
-
-    /***********************
-     * HELPERS
-     ***********************/
 
     function setText(id, value) {
       const el = document.getElementById(id);
