@@ -1,7 +1,31 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "crons": [
+    {
+      "path": "/api/sync-data?secret=YOUR_SYNC_SECRET",
+      "schedule": "*/5 * * * *"
+    }
+  ],
   "headers": [
+    {
+      "source": "/api/data",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "s-maxage=120, stale-while-revalidate=300"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
@@ -13,6 +37,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
