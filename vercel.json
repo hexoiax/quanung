@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "crons": [
     {
-      "path": "/api/sync-data?secret=landing_sync_2026_x9K2pQ",
+      "path": "/api/sync-data",
       "schedule": "*/5 * * * *"
     }
   ],
