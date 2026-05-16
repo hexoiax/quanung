@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title id="pageTitle">Landing Page</title>
+
+  <style>
+    :root {
+  --brand-main: #0284c7;
+  --brand-light: #0ea5e9;
+  --brand-dark: #075985;
+  --brand-deep: #0c4a6e;
+
+  --trust-green: #16a34a;
+  --cta-orange: #f97316;
+  --sale-red: #dc2626;
+  --star-yellow: #facc15;
+
+  --bg-main: #f8fafc;
+  --bg-soft: #f0f9ff;
+  --bg-card: #ffffff;
+
+  --text-main: #0f172a;
+  --text-soft: #475569;
+  --text-muted: #64748b;
+
+  --border: #e2e8f0;
+  --border-blue: #bae6fd;
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+
+  --shadow-sm: 0 8px 22px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 18px 46px rgba(15, 23, 42, 0.14);
+  --shadow-blue: 0 16px 38px rgba(14, 165, 233, 0.35);
+  --shadow-cta: 0 16px 38px rgba(249, 115, 22, 0.34);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, #e0f2fe 0, transparent 32%),
+    radial-gradient(circle at top right, #dcfce7 0, transparent 26%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg-main) 100%);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+body {
+  padding-top: 46px;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 14px 15px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  color: var(--text-main);
+  transition: 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand-light);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.16);
+}
+
+textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* LOADER */
+
+#pageLoader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background:
+    radial-gradient(circle at top, #e0f2fe 0, #ffffff 42%, #f8fafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--brand-deep);
+}
+
+#pageLoaderInner {
+  width: min(340px, calc(100% - 32px));
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--border-blue);
+  border-radius: 28px;
+  padding: 28px 22px;
+  box-shadow: var(--shadow-md);
+}
+
+#loaderSpinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top-color: var(--brand-main);
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  animation: spin 0.8s linear infinite;
+}
+
+#loaderTitle {
+  display: block;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+#loaderSub {
+  margin: 7px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* TOP NOTICE */
+
+#topNoticeBar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 46px;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--brand-light), var(--brand-main), var(--trust-green));
+  color: #fff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 14px;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.28);
+}
+
+#topNoticeWrapper {
+  height: 24px;
+  overflow: hidden;
+}
+
+#topNoticeText {
+  display: block;
+  font-size: 14px;
+  font-weight: 950;
+  white-space: nowrap;
+  animation: noticeSlideIn 0.55s ease;
+}
+
+@keyframes noticeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MAIN */
+
+#landingPage {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px 16px 98px;
+}
+
+/* HERO */
+
+#productIntro {
+  display: grid;
+  grid-template-columns: minmax(0, 44%) minmax(0, 56%);
+  gap: 24px;
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border-blue);
+  border-radius: 32px;
+  padding: 20px;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+}
+
+#productMediaBox {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+#hotBadge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background: linear-gradient(90deg, var(--brand-light), var(--brand-main));
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 950;
+  border-radius: 0 0 999px 0;
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.34);
+}
+
+#bestSellerBadge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  background: linear-gradient(90deg, var(--cta-orange), #ef4444);
+  color: #fff;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 950;
+  border-top-left-radius: 42px;
+  box-shadow: -8px -8px 24px rgba(249, 115, 22, 0.25);
+}
+
+#productSlider {
+  width: 100%;
+  overflow: hidden;
+}
+
+#productSliderTrack {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+#productSliderTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.product-slide {
+  min-width: 100%;
+  scroll-snap-align: center;
+  background: #fff;
+}
+
+.product-slide img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #f1f5f9;
+}
+
+.product-slide p,
+.empty-media {
+  margin: 0;
+  padding: 13px 14px 18px;
+  text-align: center;
+  color: var(--brand-dark);
+  font-weight: 900;
+  font-size: 15px;
+}
+
+/* PRODUCT INFO */
+
+#productInfoBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#priceBox {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#finalPrice {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 1000;
+  color: var(--sale-red);
+  letter-spacing: -1.2px;
+}
+
+#originalPrice {
+  font-size: 16px;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+#discountText {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 950;
+}
+
+#productName {
+  margin: 0 0 10px;
+  color: var(--brand-deep);
+  font-size: clamp(20px, 2.8vw, 28px);
+  line-height: 1.32;
+  letter-spacing: -0.3px;
+}
+
+#ratingBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin: 8px 0 13px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: #fffbeb;
+  color: #92400e;
+  font-weight: 900;
+  font-size: 14px;
+  box-shadow: 0 4px 14px rgba(250, 204, 21, 0.16);
+}
+
+#flashSaleBox {
+  background: linear-gradient(100deg, var(--brand-light), var(--brand-main), var(--trust-green));
+  color: #fff;
+  border-radius: 21px;
+  padding: 15px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-blue);
+  margin: 8px 0 14px;
+}
+
+#flashSaleBox strong {
+  font-size: 16px;
+  font-weight: 1000;
+}
+
+#flashSaleBox p {
+  margin: 4px 0 0;
+  opacity: 0.94;
+  font-size: 13px;
+}
+
+#countdown {
+  min-width: 96px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 9px 10px;
+  border-radius: 14px;
+  font-weight: 1000;
+  letter-spacing: 1px;
+}
+
+#giftBox,
+#noticeText,
+#guaranteeText {
+  border-radius: 17px;
+  padding: 13px 14px;
+  font-size: 15px;
+}
+
+#giftBox {
+  background: #ecfdf5;
+  border: 1px dashed var(--trust-green);
+  color: #166534;
+  font-weight: 850;
+}
+
+#noticeText {
+  margin-top: 10px;
+  background: #fff7ed;
+  color: #9a3412;
+  font-weight: 850;
+}
+
+#openOrderPopup,
+#submitOrder,
+[data-open-order] {
+  background: linear-gradient(90deg, var(--cta-orange), #ef4444);
+  color: #fff;
+  border-radius: 999px;
+  padding: 16px 22px;
+  font-size: 18px;
+  font-weight: 1000;
+  box-shadow: var(--shadow-cta);
+  transition: 0.18s ease;
+}
+
+#openOrderPopup {
+  margin-top: 10px;
+}
+
+#openOrderPopup small,
+[data-open-order] small {
+  display: block;
+  font-size: 13px;
+  font-weight: 750;
+  opacity: 0.96;
+  margin-top: 2px;
+}
+
+#openOrderPopup:hover,
+#submitOrder:hover,
+[data-open-order]:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+#openOrderPopup:active,
+#submitOrder:active,
+[data-open-order]:active {
+  transform: scale(0.97);
+}
+
+#guaranteeText {
+  margin-top: 13px;
+  text-align: center;
+  color: var(--brand-dark);
+  font-size: 13px;
+  font-style: italic;
+  background: rgba(224, 242, 254, 0.78);
+}
+
+/* REVIEW + DESCRIPTION */
+
+#reviewDescriptionSection,
+#videoReviewSection {
+  margin-top: 22px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--border-blue);
+  border-radius: 30px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+#tabHeader {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+}
+
+#tabHeader button {
+  flex: 1;
+  background: #f1f5f9;
+  color: var(--text-soft);
+  border-radius: 15px;
+  padding: 13px 12px;
+  font-weight: 950;
+  font-size: 15px;
+  transition: 0.18s ease;
+}
+
+#tabHeader button:hover,
+#tabHeader button[data-active="true"] {
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, var(--brand-light), var(--brand-main));
+  color: #fff;
+}
+
+#ratingSummary {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+#ratingAverageBox {
+  text-align: center;
+  background: var(--bg-soft);
+  color: var(--brand-deep);
+  border-radius: 20px;
+  padding: 17px;
+  border: 1px solid rgba(14, 165, 233, 0.14);
+}
+
+#averageRating {
+  display: block;
+  font-size: 46px;
+  line-height: 1;
+  font-weight: 1000;
+}
+
+#averageStars {
+  color: var(--star-yellow);
+  font-size: 21px;
+  margin-top: 6px;
+}
+
+#totalReviews {
+  margin: 7px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+#ratingBars {
+  display: grid;
+  gap: 8px;
+  color: var(--text-soft);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+#ratingBars div {
+  display: flex;
+  justify-content: space-between;
+  background: #f8fafc;
+  border-radius: 999px;
+  padding: 10px 13px;
+  border: 1px solid var(--border);
+}
+
+#reviewTrack {
+  display: grid;
+  gap: 14px;
+}
+
+.review-item {
+  display: flex;
+  gap: 13px;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+}
+
+.review-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #e0f2fe;
+}
+
+.review-body strong {
+  color: var(--text-main);
+  font-size: 15px;
+}
+
+.review-stars {
+  color: var(--star-yellow);
+  margin-top: 3px;
+  font-size: 14px;
+}
+
+.review-body p {
+  margin: 7px 0 10px;
+  color: var(--text-soft);
+  line-height: 1.55;
+  font-size: 15px;
+}
+
+.review-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.review-images img {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 15px;
+  cursor: zoom-in;
+  border: 1px solid var(--border);
+  transition: 0.18s ease;
+}
+
+.review-images img:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-sm);
+}
+
+#loadMoreReviews {
+  display: block;
+  margin: 18px auto 0;
+  background: var(--bg-soft);
+  color: var(--brand-deep);
+  border: 1px solid rgba(2, 132, 199, 0.22);
+  border-radius: 999px;
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 950;
+}
+
+#descriptionContent {
+  color: var(--text-soft);
+  line-height: 1.68;
+}
+
+.description-block {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #fff;
+  margin-bottom: 12px;
+}
+
+.description-block h3,
+#descriptionContent h3 {
+  color: var(--brand-deep);
+  margin: 0 0 8px;
+}
+
+.description-block p,
+#descriptionContent p {
+  margin: 0;
+}
+
+/* VIDEO */
+
+#videoReviewSection {
+  display: grid;
+  grid-template-columns: 62% 38%;
+  gap: 18px;
+  align-items: center;
+}
+
+#videoSlider {
+  overflow: hidden;
+  border-radius: 26px;
+  background: #000;
+  box-shadow: var(--shadow-md);
+}
+
+#videoTrack {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+#videoTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.video-slide {
+  min-width: 100%;
+  scroll-snap-align: center;
+}
+
+.video-slide video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: #000;
+}
+
+#videoInfoBox {
+  padding: 8px;
+}
+
+#videoTitle {
+  color: var(--brand-deep);
+  font-size: clamp(20px, 3vw, 30px);
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+
+#videoDesc {
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+#videoDots {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+#videoDots button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  color: var(--brand-deep);
+  font-weight: 950;
+  transition: 0.18s ease;
+}
+
+#videoDots button:hover {
+  background: var(--brand-main);
+  color: #fff;
+}
+
+/* FLOATING ORDER */
+
+#floatingOrderBtn {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  width: min(360px, calc(100% - 28px));
+  z-index: 9990;
+}
+
+#floatingOrderBtn button {
+  width: 100%;
+  animation: floatPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes floatPulse {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* PURCHASE POPUP */
+
+#purchasePopup {
+  position: fixed;
+  top: 60px;
+  right: 14px;
+  max-width: min(340px, calc(100% - 28px));
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow-md);
+  z-index: 9991;
+}
+
+#purchaseAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0f2fe, var(--brand-light));
+  object-fit: cover;
+}
+
+#purchasePopup strong {
+  color: var(--brand-deep);
+}
+
+#purchasePopup p {
+  margin: 2px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* POPUPS */
+
+#orderPopup,
+#successPopup,
+#zoomOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  backdrop-filter: blur(5px);
+}
+
+#orderPopupBox,
+#successBox {
+  width: min(450px, 100%);
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 28px;
+  padding: 20px;
+  box-shadow: 0 26px 76px rgba(15, 23, 42, 0.36);
+  animation: popIn 0.22s ease;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+#closeOrderPopup {
+  float: right;
+  background: #f1f5f9;
+  color: var(--text-soft);
+  border-radius: 999px;
+  padding: 8px 13px;
+  font-weight: 900;
+}
+
+#orderPopupBox h2 {
+  clear: both;
+  text-align: center;
+  color: var(--brand-deep);
+  margin: 8px 0 18px;
+}
+
+#orderForm {
+  display: grid;
+  gap: 11px;
+}
+
+#sizeSection label,
+#quantitySection label {
+  display: block;
+  font-weight: 950;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+#sizeSection p {
+  margin: 0 0 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+#sizeContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#sizeContainer button {
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  border-radius: 999px;
+  padding: 10px 15px;
+  font-weight: 950;
+  transition: 0.18s ease;
+}
+
+#sizeContainer button:hover,
+#sizeContainer button[data-selected="true"] {
+  background: var(--brand-main);
+  color: #fff;
+  border-color: var(--brand-main);
+  box-shadow: 0 9px 22px rgba(14, 165, 233, 0.26);
+}
+
+#priceSummary {
+  background: var(--bg-soft);
+  border: 1px solid rgba(2, 132, 199, 0.18);
+  border-radius: 20px;
+  padding: 13px 14px;
+}
+
+#priceSummary p {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+  color: var(--brand-deep);
+}
+
+#total {
+  font-size: 21px;
+  color: var(--sale-red);
+}
+
+#submitOrder {
+  margin-top: 4px;
+  width: 100%;
+}
+
+#successBox {
+  text-align: center;
+}
+
+#successIcon {
+  font-size: 56px;
+}
+
+#successBox h3 {
+  color: var(--trust-green);
+  font-size: 24px;
+  margin: 8px 0;
+}
+
+#successBox p {
+  color: var(--text-soft);
+}
+
+/* ZOOM */
+
+#zoomImage {
+  max-width: min(560px, 94vw);
+  max-height: 86vh;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 26px 76px rgba(0, 0, 0, 0.45);
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 42px;
+  }
+
+  #topNoticeBar {
+    height: 42px;
+    font-size: 13px;
+  }
+
+  #landingPage {
+    padding: 12px 10px 96px;
+  }
+
+  #productIntro {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 24px;
+  }
+
+  #productMediaBox {
+    border-radius: 22px;
+  }
+
+  #finalPrice {
+    font-size: 38px;
+  }
+
+  #productName {
+    font-size: 19px;
+  }
+
+  #flashSaleBox {
+    padding: 13px;
+  }
+
+  #reviewDescriptionSection,
+  #videoReviewSection {
+    padding: 14px;
+    border-radius: 22px;
+  }
+
+  #ratingSummary {
+    grid-template-columns: 1fr;
+  }
+
+  .review-item {
+    padding: 12px;
+  }
+
+  .review-images img {
+    width: 76px;
+    height: 76px;
+  }
+
+  #videoReviewSection {
+    grid-template-columns: 65% 35%;
+    gap: 10px;
+  }
+
+  #videoTitle {
+    font-size: 15px;
+  }
+
+  #videoDesc {
+    font-size: 13px;
+  }
+
+  #videoDots button {
+    width: 29px;
+    height: 29px;
+    font-size: 12px;
+  }
+
+  #floatingOrderBtn {
+    right: 0;
+    bottom: 0;
+    width: 54%;
+  }
+
+  #floatingOrderBtn button {
+    border-radius: 24px 0 0 0;
+    padding: 14px 10px;
+    font-size: 15px;
+  }
+
+  #floatingOrderBtn small {
+    font-size: 11px;
+  }
+
+  #purchasePopup {
+    top: 52px;
+    right: 8px;
+    max-width: 72%;
+    padding: 8px;
+  }
+
+  #purchasePopup p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 430px) {
+  #topNoticeText {
+    font-size: 12px;
+  }
+
+  #hotBadge,
+  #bestSellerBadge {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  #flashSaleBox strong {
+    font-size: 14px;
+  }
+
+  #countdown {
+    min-width: 82px;
+    font-size: 13px;
+  }
+
+  #tabHeader button {
+    font-size: 13px;
+    padding: 11px 8px;
+  }
+
+  #orderPopupBox,
+  #successBox {
+    border-radius: 22px;
+    padding: 16px;
+  }
+}
+    #purchasePopupContent {
+  flex: 1;
+  min-width: 0;
+}
+
+#purchaseProductImage {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+    
+  </style>
+
+</head>
+
+<body>
+
+  <div id="pageLoader">
+    <div id="pageLoaderInner">
+      <div id="loaderSpinner"></div>
+      <strong id="loaderTitle">Đang tải sản phẩm...</strong>
+      <p id="loaderSub">Vui lòng chờ trong giây lát</p>
+    </div>
+  </div>
+
+  <header id="topNoticeBar">
+    <div id="topNoticeWrapper">
+      <span id="topNoticeText"></span>
+    </div>
+  </header>
+
+  <div id="floatingOrderBtn">
+    <button type="button" data-open-order>
+      <span id="floatingBtnTitle">Đặt hàng ngay</span>
+      <small id="floatingBtnSub"></small>
+    </button>
+  </div>
+
+  <div id="purchasePopup">
+    <img id="purchaseAvatar" alt="Khách vừa đặt hàng" />
+
+    <div id="purchasePopupContent">
+      <strong id="purchaseName">Khách hàng</strong>
+      <p id="purchaseText">vừa đặt hàng</p>
+    </div>
+
+    <img id="purchaseProductImage" alt="Sản phẩm vừa mua" />
+  </div>
+
+  <main id="landingPage" hidden>
+
+    <section id="productIntro">
+
+      <div id="productMediaBox">
+        <div id="hotBadge"></div>
+        <div id="bestSellerBadge"></div>
+
+        <div id="productSlider">
+          <div id="productSliderTrack"></div>
+        </div>
+      </div>
+
+      <div id="productInfoBox">
+
+        <div id="priceBox">
+          <span id="finalPrice"></span>
+          <span id="originalPrice"></span>
+          <span id="discountText"></span>
+        </div>
+
+        <h1 id="productName"></h1>
+
+        <div id="ratingBox">
+          ⭐ <span id="ratingText"></span>
+          <span id="soldText"></span>
+        </div>
+
+        <div id="flashSaleBox">
+          <div>
+            <strong id="flashSaleTitle"></strong>
+            <p id="flashSaleSub"></p>
+          </div>
+          <span id="countdown">--:--:--</span>
+        </div>
+
+        <div id="giftBox"></div>
+        <div id="noticeText"></div>
+
+        <button type="button" id="openOrderPopup" data-open-order>
+          <span id="mainOrderBtnText">Đặt hàng ngay</span>
+          <small id="orderBtnSub"></small>
+        </button>
+
+        <div id="guaranteeText"></div>
+
+      </div>
+    </section>
+
+    <section id="reviewDescriptionSection">
+
+      <div id="tabHeader">
+        <button type="button" data-tab-btn="reviews">Đánh giá</button>
+        <button type="button" data-tab-btn="description">Mô tả sản phẩm</button>
+      </div>
+
+      <div id="tabReviews" data-tab-content="reviews">
+
+        <div id="ratingSummary">
+          <div id="ratingAverageBox">
+            <strong id="averageRating"></strong>
+            <div id="averageStars">★★★★★</div>
+            <p id="totalReviews"></p>
+          </div>
+
+          <div id="ratingBars">
+            <div>5 ⭐ <span>95%</span></div>
+            <div>4 ⭐ <span>4%</span></div>
+            <div>3 ⭐ <span>1%</span></div>
+            <div>2 ⭐ <span>0%</span></div>
+            <div>1 ⭐ <span>0%</span></div>
+          </div>
+        </div>
+
+        <div id="reviewSlider">
+          <div id="reviewTrack"></div>
+        </div>
+
+        <button type="button" id="loadMoreReviews">Xem thêm</button>
+
+      </div>
+
+      <div id="tabDescription" data-tab-content="description" hidden>
+        <div id="descriptionContent"></div>
+      </div>
+
+    </section>
+
+    <section id="videoReviewSection">
+
+      <div id="videoSlider">
+        <div id="videoTrack"></div>
+      </div>
+
+      <div id="videoInfoBox">
+        <h2 id="videoTitle"></h2>
+        <p id="videoDesc"></p>
+        <div id="videoDots"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <div id="zoomOverlay" hidden>
+    <img id="zoomImage" alt="Ảnh phóng to" />
+  </div>
+
+  <div id="orderPopup" hidden>
+    <div id="orderPopupBox">
+
+      <button type="button" id="closeOrderPopup">Đóng</button>
+
+      <h2 id="orderFormTitle">ĐẶT HÀNG NGAY</h2>
+
+      <form id="orderForm">
+
+        <input id="customerName" name="name" type="text" required />
+        <input id="customerPhone" name="phone" type="tel" required />
+        <textarea id="customerAddress" name="address" required></textarea>
+
+        <div id="sizeSection">
+          <label id="sizeLabel">Chọn Size</label>
+          <p id="sizeNote"></p>
+          <div id="sizeContainer"></div>
+        </div>
+
+        <div id="quantitySection">
+          <label id="quantityLabel">Số lượng</label>
+          <select id="quantitySelect" name="quantity" required></select>
+        </div>
+
+        <div id="priceSummary">
+          <p>Tạm tính: <strong id="subtotal">0đ</strong></p>
+          <p>Giảm giá: <strong id="discount">0đ</strong></p>
+          <p>Tổng thanh toán: <strong id="total">0đ</strong></p>
+          <p id="freeShipText"></p>
+        </div>
+
+        <textarea id="orderNote" name="note"></textarea>
+
+        <button type="submit" id="submitOrder"></button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div id="successPopup" hidden>
+    <div id="successBox">
+      <div id="successIcon">✅</div>
+      <h3 id="successTitle">Đặt hàng thành công!</h3>
+      <p id="successMessage">Cảm ơn bạn đã tin tưởng sản phẩm của cửa hàng.</p>
+    </div>
+  </div>
+
+  <script>
+    const DATA_API_URL = "/api/data";
+    const ORDER_API_URL = "/api/order";
+
+    const DEFAULT_DATA = {
+      status: "fallback",
+      product_info: {
+        product_name: "Sản phẩm",
+        final_price: "0",
+        original_price: "0",
+        discount_text: "",
+        rating: "4.9",
+        sold_text: "0 lượt bán",
+        total_reviews: "0",
+        gift_text: "",
+        shipping_text: "Miễn phí ship toàn quốc",
+        notice_text: "",
+        flash_sale_title: "🔥 ƯU ĐÃI GIỜ VÀNG",
+        flash_sale_sub: "Kết thúc sau:",
+        video_section_title: "Khách Review Sản Phẩm",
+        video_section_desc: ""
+      },
+      product_media: [],
+      product_sizes: [],
+      reviews: [],
+      video_reviews: [],
+      top_notices: [],
+      product_badges: {},
+      product_policies: [],
+      purchase_popups: [],
+      description_blocks: [],
+      order_config: {
+        form_title: "ĐẶT HÀNG NGAY",
+        name_placeholder: "Tên khách hàng",
+        phone_placeholder: "Số điện thoại",
+        address_placeholder: "Địa chỉ giao hàng",
+        size_label: "Chọn Size",
+        size_note: "* Hãy chọn theo size giày của bạn",
+        quantity_label: "Số lượng",
+        note_placeholder: "Ghi chú",
+        submit_text: "Gửi đơn hàng",
+        free_ship_text: "🚚 Free Ship toàn quốc",
+        success_title: "Đặt hàng thành công!",
+        success_message: "Cảm ơn bạn đã tin tưởng sản phẩm của cửa hàng."
+      }
+    };
+
+    let APP_DATA = DEFAULT_DATA;
+    let selectedSize = "";
+    let selectedQuantity = 1;
+
+    document.addEventListener("DOMContentLoaded", initApp);
+
+    async function initApp() {
+      showLoader();
+
+      APP_DATA = await loadLandingData();
+
+      renderProductInfo(APP_DATA.product_info || {});
+      renderBadges(APP_DATA.product_badges || {});
+      renderPolicies(APP_DATA.product_policies || []);
+      renderOrderConfig(APP_DATA.order_config || {});
+      renderProductMedia(APP_DATA.product_media || []);
+      renderReviews(APP_DATA.reviews || []);
+      renderVideoReviews(APP_DATA.video_reviews || []);
+      renderDescription(APP_DATA.description_blocks || [], APP_DATA.product_info || {});
+
+      setupOrderPopup();
+      setupSizeOptions(APP_DATA.product_sizes || []);
+      setupQuantityOptions();
+      setupTabs();
+      setupImageZoom();
+      setupCountdown();
+      setupOrderSubmit();
+      setupPurchasePopup(APP_DATA.purchase_popups || []);
+      setupTopNoticeSlider(APP_DATA.top_notices || [], APP_DATA.product_info || {});
+      setupLoadMoreReviews();
+
+      updatePriceSummary();
+      hideLoader();
+    }
+
+    function showLoader() {
+      const loader = document.getElementById("pageLoader");
+      const page = document.getElementById("landingPage");
+
+      if (loader) loader.hidden = false;
+      if (page) page.hidden = true;
+    }
+
+    function hideLoader() {
+      const loader = document.getElementById("pageLoader");
+      const page = document.getElementById("landingPage");
+
+      if (page) page.hidden = false;
+
+      setTimeout(() => {
+        if (loader) loader.hidden = true;
+      }, 250);
+    }
+
+    async function loadLandingData() {
+      try {
+        const res = await fetch(DATA_API_URL, {
+          method: "GET",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error("Cannot fetch /api/data");
+        }
+
+        const data = await res.json();
+
+        if (!data || data.status !== "success") {
+          return DEFAULT_DATA;
+        }
+
+        return {
+          ...DEFAULT_DATA,
+          ...data,
+          product_info: {
+            ...DEFAULT_DATA.product_info,
+            ...(data.product_info || {})
+          },
+          order_config: {
+            ...DEFAULT_DATA.order_config,
+            ...(data.order_config || {})
+          },
+          product_media: normalizeArray(data.product_media),
+          product_sizes: normalizeArray(data.product_sizes),
+          reviews: normalizeArray(data.reviews),
+          video_reviews: normalizeArray(data.video_reviews),
+          top_notices: normalizeArray(data.top_notices),
+          product_policies: normalizeArray(data.product_policies),
+          purchase_popups: normalizeArray(data.purchase_popups),
+          description_blocks: normalizeArray(data.description_blocks),
+          product_badges: data.product_badges || {}
+        };
+
+      } catch (err) {
+        console.warn("Không lấy được data từ /api/data, dùng DEFAULT_DATA", err);
+        return DEFAULT_DATA;
+      }
+    }
+
+    function renderProductInfo(info) {
+      document.title = info.product_name || "Landing Page";
+
+      setText("productName", info.product_name);
+      setText("finalPrice", formatMoney(info.final_price));
+      setText("originalPrice", formatMoney(info.original_price));
+      setText("discountText", info.discount_text);
+
+      setText("ratingText", `${info.rating || "4.9"}/5 •`);
+      setText("soldText", info.sold_text);
+      setText("averageRating", info.rating || "4.9");
+      setText("totalReviews", `${info.total_reviews || "0"} đánh giá`);
+
+      setText("giftBox", info.gift_text);
+      setText("noticeText", info.notice_text);
+
+      setText("flashSaleTitle", info.flash_sale_title || "🔥 ƯU ĐÃI GIỜ VÀNG");
+      setText("flashSaleSub", info.flash_sale_sub || "Kết thúc sau:");
+
+      setText("orderBtnSub", info.shipping_text);
+      setText("floatingBtnSub", info.shipping_text);
+    }
+
+    function renderBadges(badges) {
+      setText("hotBadge", badges.hot_badge || "288+ đã mua 24h");
+      setText("bestSellerBadge", badges.best_seller_badge || "Sản phẩm bán chạy");
+    }
+
+    function renderPolicies(policies) {
+      const guarantee = document.getElementById("guaranteeText");
+      if (!guarantee) return;
+
+      const activePolicies = policies.filter(item => isActive(item.active));
+
+      if (!activePolicies.length) {
+        guarantee.textContent = "* Miễn phí đổi trả trong vòng 7 ngày 🚚 Giao hàng nhanh 2-4 ngày";
+        return;
+      }
+
+      guarantee.textContent = "* " + activePolicies.map(item => item.text).join(" • ");
+    }
+
+    function renderOrderConfig(config) {
+      setText("orderFormTitle", config.form_title);
+      setText("sizeLabel", config.size_label);
+      setText("sizeNote", config.size_note);
+      setText("quantityLabel", config.quantity_label);
+      setText("submitOrder", config.submit_text);
+      setText("freeShipText", config.free_ship_text);
+      setText("successTitle", config.success_title);
+      setText("successMessage", config.success_message);
+
+      setAttr("customerName", "placeholder", config.name_placeholder);
+      setAttr("customerPhone", "placeholder", config.phone_placeholder);
+      setAttr("customerAddress", "placeholder", config.address_placeholder);
+      setAttr("orderNote", "placeholder", config.note_placeholder);
+    }
+
+    function renderProductMedia(items) {
+      const track = document.getElementById("productSliderTrack");
+      if (!track) return;
+
+      const activeItems = items.filter(item => isActive(item.active));
+
+      if (!activeItems.length) {
+        track.innerHTML = `
+          <div class="product-slide">
+            <div class="empty-media">Chưa có ảnh sản phẩm</div>
+          </div>
+        `;
+        return;
+      }
+
+      track.innerHTML = activeItems.map((item, index) => `
+        <div class="product-slide" data-type="${escapeAttr(item.type || "image")}">
+          <img
+            src="${escapeAttr(item.url || "")}"
+            alt="${escapeAttr(item.alt || "Ảnh sản phẩm")}"
+            loading="${index === 0 ? "eager" : "lazy"}"
+            decoding="async"
+          />
+          <p>${escapeHTML(item.caption || "")}</p>
+        </div>
+      `).join("");
+    }
+
+    function renderReviews(reviews) {
+      const track = document.getElementById("reviewTrack");
+      if (!track) return;
+
+      const activeReviews = reviews.filter(review => isActive(review.active));
+
+      if (!activeReviews.length) {
+        track.innerHTML = `<p>Chưa có đánh giá.</p>`;
+        return;
+      }
+
+      track.innerHTML = activeReviews.map(review => {
+        const stars = renderStars(review.stars || 5);
+        const images = Array.isArray(review.images) ? review.images : [];
+
+        return `
+          <article class="review-item">
+            <img
+              src="${escapeAttr(review.avatar_url || "")}"
+              alt="${escapeAttr(review.name || "Khách hàng")}"
+              class="review-avatar"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <div class="review-body">
+              <strong>${escapeHTML(review.name || "Khách hàng")}</strong>
+              <div class="review-stars">${stars}</div>
+              <p>${escapeHTML(review.content || "")}</p>
+
+              <div class="review-images">
+                ${images.map(img => `
+                  <img
+                    src="${escapeAttr(img)}"
+                    alt="Ảnh đánh giá"
+                    class="zoomable-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                `).join("")}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderStars(value) {
+      const count = Math.max(1, Math.min(5, Number(value || 5)));
+      return "★★★★★".slice(0, count);
+    }
+
+    function renderVideoReviews(videos) {
+      const track = document.getElementById("videoTrack");
+      const dots = document.getElementById("videoDots");
+
+      if (!track || !dots) return;
+
+      const activeVideos = videos.filter(video => isActive(video.active));
+
+      if (!activeVideos.length) {
+        track.innerHTML = `<p>Chưa có video review.</p>`;
+        dots.innerHTML = "";
+        setText("videoTitle", APP_DATA.product_info.video_section_title || "Video review sản phẩm");
+        setText("videoDesc", APP_DATA.product_info.video_section_desc || "");
+        return;
+      }
+
+      track.innerHTML = activeVideos.map((video, index) => `
+        <div class="video-slide" data-video-index="${index}">
+          <video
+            src="${escapeAttr(video.video_url || "")}"
+            playsinline
+            muted
+            loop
+            preload="metadata"
+          ></video>
+        </div>
+      `).join("");
+
+      dots.innerHTML = activeVideos.map((video, index) => `
+        <button type="button" data-video-dot="${index}">
+          ${index + 1}
+        </button>
+      `).join("");
+
+      setVideoInfo(activeVideos[0]);
+
+      dots.querySelectorAll("[data-video-dot]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const index = Number(btn.dataset.videoDot);
+          const target = track.querySelector(`[data-video-index="${index}"]`);
+
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              inline: "center",
+              block: "nearest"
+            });
+          }
+
+          pauseAllVideos();
+
+          const videoEl = target?.querySelector("video");
+          videoEl?.play?.().catch(() => {});
+
+          setVideoInfo(activeVideos[index]);
+        });
+      });
+    }
+
+    function setVideoInfo(video) {
+      setText("videoTitle", video?.title || APP_DATA.product_info.video_section_title || "Khách Review Sản Phẩm");
+      setText("videoDesc", video?.desc || APP_DATA.product_info.video_section_desc || "");
+    }
+
+    function pauseAllVideos() {
+      document.querySelectorAll("#videoTrack video").forEach(video => {
+        video.pause();
+      });
+    }
+
+    function renderDescription(blocks, info) {
+      const box = document.getElementById("descriptionContent");
+      if (!box) return;
+
+      const activeBlocks = blocks.filter(block => isActive(block.active));
+
+      if (!activeBlocks.length) {
+        box.innerHTML = `
+          <h3>📝 Giới thiệu sản phẩm</h3>
+          <p>${escapeHTML(info.product_name || "")}</p>
+        `;
+        return;
+      }
+
+      box.innerHTML = activeBlocks.map(block => `
+        <section class="description-block">
+          <h3>${escapeHTML(block.title || "")}</h3>
+          <p>${escapeHTML(block.content || "")}</p>
+        </section>
+      `).join("");
+    }
+
+    function setupTopNoticeSlider(notices, info) {
+      const textEl = document.getElementById("topNoticeText");
+      if (!textEl) return;
+
+      const list = notices
+        .filter(item => isActive(item.active))
+        .map(item => item.text)
+        .filter(Boolean);
+
+      if (!list.length) {
+        list.push(info.shipping_text || "🚚 Miễn phí ship toàn quốc");
+      }
+
+      let current = 0;
+
+      function updateNotice() {
+        textEl.style.animation = "none";
+        void textEl.offsetWidth;
+
+        textEl.textContent = list[current];
+        textEl.style.animation = "noticeSlideIn 0.55s ease";
+
+        current = current + 1;
+
+        if (current >= list.length) current = 0;
+      }
+
+      updateNotice();
+      setInterval(updateNotice, 4200);
+    }
+
+    function setupOrderPopup() {
+      const popup = document.getElementById("orderPopup");
+      const closeBtn = document.getElementById("closeOrderPopup");
+
+      document.querySelectorAll("[data-open-order]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          popup.hidden = false;
+        });
+      });
+
+      closeBtn?.addEventListener("click", () => {
+        popup.hidden = true;
+      });
+
+      popup?.addEventListener("click", e => {
+        if (e.target === popup) {
+          popup.hidden = true;
+        }
+      });
+    }
+
+    function setupSizeOptions(sizesFromApi) {
+      const box = document.getElementById("sizeContainer");
+      if (!box) return;
+
+      const activeSizes = sizesFromApi
+        .filter(size => isActive(size.active))
+        .map(size => ({
+          label: size.label || `Size ${size.value}`,
+          value: size.value || size.label
+        }))
+        .filter(size => size.value);
+
+      const fallbackSizes = ["36", "37", "38", "39", "40", "41", "42", "43"]
+        .map(size => ({
+          label: `Size ${size}`,
+          value: size
+        }));
+
+      const sizes = activeSizes.length ? activeSizes : fallbackSizes;
+
+      box.innerHTML = sizes.map(size => `
+        <button type="button" data-size="${escapeAttr(size.value)}">
+          ${escapeHTML(size.label)}
+        </button>
+      `).join("");
+
+      box.querySelectorAll("[data-size]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedSize = btn.dataset.size;
+
+          box.querySelectorAll("[data-size]").forEach(b => {
+            b.removeAttribute("data-selected");
+          });
+
+          btn.setAttribute("data-selected", "true");
+        });
+      });
+    }
+
+    function setupQuantityOptions() {
+      const select = document.getElementById("quantitySelect");
+      if (!select) return;
+
+      select.innerHTML = "";
+
+      for (let i = 1; i <= 10; i++) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = i;
+        select.appendChild(option);
+      }
+
+      select.value = "1";
+      selectedQuantity = 1;
+
+      select.addEventListener("change", () => {
+        selectedQuantity = Number(select.value || 1);
+        updatePriceSummary();
+      });
+    }
+
+    function updatePriceSummary() {
+      const price = Number(APP_DATA?.product_info?.final_price || 0);
+      const original = Number(APP_DATA?.product_info?.original_price || price);
+      const qty = Number(selectedQuantity || 1);
+
+      const subtotal = original * qty;
+      const total = price * qty;
+      const discount = Math.max(0, subtotal - total);
+
+      setText("subtotal", formatMoney(subtotal));
+      setText("discount", "-" + formatMoney(discount));
+      setText("total", formatMoney(total));
+    }
+
+    function setupOrderSubmit() {
+      const form = document.getElementById("orderForm");
+      if (!form) return;
+
+      form.addEventListener("submit", async e => {
+        e.preventDefault();
+
+        if (!selectedSize) {
+          alert("Vui lòng chọn size.");
+          return;
+        }
+
+        const submitBtn = document.getElementById("submitOrder");
+        const oldText = submitBtn?.textContent || "Gửi đơn hàng";
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Đang gửi đơn...";
+        }
+
+        const payload = {
+          name: getValue("customerName"),
+          phone: getValue("customerPhone"),
+          address: getValue("customerAddress"),
+          size: selectedSize,
+          quantity: selectedQuantity,
+          note: getValue("orderNote"),
+          product_name: APP_DATA?.product_info?.product_name || "",
+          final_price: APP_DATA?.product_info?.final_price || "",
+          total: Number(APP_DATA?.product_info?.final_price || 0) * Number(selectedQuantity || 1),
+          source_url: window.location.href,
+          user_agent: navigator.userAgent,
+          created_at: new Date().toISOString()
+        };
+
+        try {
+          const res = await fetch(ORDER_API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await res.json();
+
+          if (!res.ok || result.status !== "success") {
+            throw new Error(result.message || "Order API error");
+          }
+
+          showSuccessPopup();
+          resetOrderForm(form);
+
+        } catch (err) {
+          console.error("Lỗi gửi đơn:", err);
+          alert("Có lỗi khi gửi đơn. Vui lòng thử lại.");
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = oldText;
+          }
+        }
+      });
+    }
+
+    function resetOrderForm(form) {
+      form.reset();
+
+      selectedSize = "";
+      selectedQuantity = 1;
+
+      setupSizeOptions(APP_DATA.product_sizes || []);
+      setupQuantityOptions();
+      updatePriceSummary();
+    }
+
+    function showSuccessPopup() {
+      const orderPopup = document.getElementById("orderPopup");
+      const successPopup = document.getElementById("successPopup");
+
+      if (orderPopup) orderPopup.hidden = true;
+      if (successPopup) successPopup.hidden = false;
+
+      setTimeout(() => {
+        if (successPopup) successPopup.hidden = true;
+      }, 2500);
+    }
+
+    function setupPurchasePopup(popups) {
+      const nameEl = document.getElementById("purchaseName");
+      const textEl = document.getElementById("purchaseText");
+      const popup = document.getElementById("purchasePopup");
+      const avatarEl = document.getElementById("purchaseAvatar");
+      const productImgEl = document.getElementById("purchaseProductImage");
+
+      if (!nameEl || !textEl || !popup) return;
+
+      const activePopups = popups.filter(item => isActive(item.active));
+
+      const fallback = [
+        {
+          name: "Anh Minh",
+          location: "Hà Nội",
+          action: "vừa đặt",
+          quantity_min: 1,
+          quantity_max: 2,
+          avatar_url: "",
+          product_image: ""
+        },
+        {
+          name: "Chị Hương",
+          location: "TP.HCM",
+          action: "vừa mua",
+          quantity_min: 1,
+          quantity_max: 3,
+          avatar_url: "",
+          product_image: ""
+        }
+      ];
+
+      const list = activePopups.length ? activePopups : fallback;
+
+      popup.style.opacity = "0";
+      popup.style.transform = "translateY(20px)";
+      popup.style.transition = "all 0.4s ease";
+
+      function showPopup() {
+        const item = list[Math.floor(Math.random() * list.length)];
+
+        const min = Number(item.quantity_min || 1);
+        const max = Number(item.quantity_max || min);
+        const quantity = randomBetween(min, max);
+
+        nameEl.textContent = item.name || "Khách hàng";
+        textEl.textContent = `${item.action || "vừa đặt"} ${quantity} sản phẩm • ${item.location || ""}`;
+
+        if (avatarEl) {
+          avatarEl.src = item.avatar_url || "";
+          avatarEl.hidden = !item.avatar_url;
+        }
+
+        if (productImgEl) {
+          productImgEl.src = item.product_image || "";
+          productImgEl.hidden = !item.product_image;
+        }
+
+        popup.style.opacity = "1";
+        popup.style.transform = "translateY(0)";
+
+        const visibleTime = randomBetween(5000, 9000);
+
+        setTimeout(() => {
+          popup.style.opacity = "0";
+          popup.style.transform = "translateY(20px)";
+        }, visibleTime);
+
+        const nextDelay = randomBetween(28000, 75000);
+        setTimeout(showPopup, nextDelay);
+      }
+
+      const firstDelay = randomBetween(10000, 22000);
+      setTimeout(showPopup, firstDelay);
+    }
+
+    function setupImageZoom() {
+      const overlay = document.getElementById("zoomOverlay");
+      const image = document.getElementById("zoomImage");
+
+      document.addEventListener("click", e => {
+        const target = e.target;
+
+        if (target.classList && target.classList.contains("zoomable-image")) {
+          image.src = target.src;
+          overlay.hidden = false;
+        }
+
+        if (target.id === "zoomOverlay") {
+          overlay.hidden = true;
+          image.src = "";
+        }
+      });
+    }
+
+    function setupCountdown() {
+      const countdown = document.getElementById("countdown");
+      if (!countdown) return;
+
+      function update() {
+        const now = new Date();
+        const end = new Date();
+
+        end.setHours(23, 59, 59, 999);
+
+        const diff = Math.max(0, end - now);
+
+        const h = Math.floor(diff / 1000 / 60 / 60);
+        const m = Math.floor((diff / 1000 / 60) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        countdown.textContent = [
+          String(h).padStart(2, "0"),
+          String(m).padStart(2, "0"),
+          String(s).padStart(2, "0")
+        ].join(":");
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    function setupTabs() {
+      const buttons = document.querySelectorAll("[data-tab-btn]");
+      const contents = document.querySelectorAll("[data-tab-content]");
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const tab = btn.dataset.tabBtn;
+
+          contents.forEach(content => {
+            content.hidden = content.dataset.tabContent !== tab;
+          });
+
+          buttons.forEach(b => b.removeAttribute("data-active"));
+          btn.setAttribute("data-active", "true");
+        });
+      });
+
+      buttons[0]?.setAttribute("data-active", "true");
+    }
+
+    function setupLoadMoreReviews() {
+      const btn = document.getElementById("loadMoreReviews");
+      if (!btn) return;
+
+      btn.addEventListener("click", () => {
+        alert("Đã hiển thị toàn bộ đánh giá hiện có.");
+      });
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value || "";
+    }
+
+    function setAttr(id, attr, value) {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute(attr, value || "");
+    }
+
+    function getValue(id) {
+      return document.getElementById(id)?.value?.trim() || "";
+    }
+
+    function normalizeArray(value) {
+      return Array.isArray(value) ? value : [];
+    }
+
+    function formatMoney(value) {
+      const number = Number(value || 0);
+      return number.toLocaleString("vi-VN") + "đ";
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHTML(value);
+    }
+
+    function isActive(value) {
+      return value === true ||
+        value === 1 ||
+        value === "1" ||
+        String(value).toUpperCase() === "TRUE" ||
+        value === undefined ||
+        value === null ||
+        value === "";
+    }
+
+    function randomBetween(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  </script>
+
+</body>
+</html>
