@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "crons": [
     {
-      "path": "/api/sync-data?secret=YOUR_SYNC_SECRET",
+      "path": "/api/sync-data?secret=landing_sync_2026_x9K2pQ",
       "schedule": "*/5 * * * *"
     }
   ],
@@ -18,7 +18,16 @@
       ]
     },
     {
-      "source": "/api/(.*)",
+      "source": "/api/sync-data",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/api/order",
       "headers": [
         {
           "key": "Cache-Control",
@@ -37,10 +46,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
