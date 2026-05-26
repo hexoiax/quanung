@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=18"
+    "node": "20.x"
   },
   "scripts": {
     "dev": "vercel dev",
     "start": "vercel dev",
-    "build": "echo build completed"
+    "build": "echo \"build completed\""
   },
   "dependencies": {
     "redis": "^4.7.0"
