@@ -11,8 +11,14 @@ export default async function handler(req, res) {
     "s-maxage=120, stale-while-revalidate=300"
   );
 
+  if (req.method !== "GET") {
+    return res.status(405).json({
+      status: "error",
+      message: "Method Not Allowed"
+    });
+  }
+
   try {
-    // 1. Ưu tiên đọc cache chính từ Redis
     const cachedData = await getRedisJson(CACHE_KEY);
 
     if (cachedData) {
@@ -22,7 +28,6 @@ export default async function handler(req, res) {
       });
     }
 
-    // 2. Nếu cache chính rỗng, thử đọc backup
     const backupData = await getRedisJson(BACKUP_KEY);
 
     if (backupData) {
@@ -32,18 +37,21 @@ export default async function handler(req, res) {
       });
     }
 
-    // 3. Nếu Redis chưa có data, fallback Apps Script
     const freshData = await fetchFromGoogleScript();
 
-    // 4. Lưu lại Redis cho request sau
-    await setRedisJson(CACHE_KEY, freshData);
+    await setRedisJson(CACHE_KEY, {
+      ...freshData,
+      cache_source: "google_script_fallback",
+      synced_at: new Date().toISOString()
+    });
 
     return res.status(200).json({
       ...freshData,
       cache_source: "google_script_fallback"
     });
-
   } catch (err) {
+    console.error("DATA API ERROR:", err);
+
     return res.status(500).json({
       status: "error",
       message: "Cannot load landing data",
@@ -53,23 +61,28 @@ export default async function handler(req, res) {
 }
 
 async function getRedisJson(key) {
-  const raw = await redis.get(key);
-
-  if (!raw) return null;
-
-  if (typeof raw === "object") {
-    return raw;
-  }
-
   try {
+    const raw = await redis.get(key);
+
+    if (!raw) return null;
+
+    if (typeof raw === "object") {
+      return raw;
+    }
+
     return JSON.parse(raw);
   } catch (err) {
+    console.error(`REDIS GET ERROR ${key}:`, err);
     return null;
   }
 }
 
 async function setRedisJson(key, value) {
-  await redis.set(key, JSON.stringify(value));
+  try {
+    await redis.set(key, JSON.stringify(value));
+  } catch (err) {
+    console.error(`REDIS SET ERROR ${key}:`, err);
+  }
 }
 
 async function fetchFromGoogleScript() {
@@ -77,18 +90,31 @@ async function fetchFromGoogleScript() {
     throw new Error("Missing GOOGLE_SCRIPT_URL env");
   }
 
-  const response = await fetch(`${GOOGLE_SCRIPT_URL}?route=data`, {
-    method: "GET"
+  const url = `${GOOGLE_SCRIPT_URL}?route=data&t=${Date.now()}`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json"
+    }
   });
 
+  const text = await response.text();
+
   if (!response.ok) {
-    throw new Error(`Google Script fetch failed: ${response.status}`);
+    throw new Error(`Google Script fetch failed: ${response.status} - ${text}`);
   }
 
-  const data = await response.json();
+  let data;
+
+  try {
+    data = JSON.parse(text);
+  } catch (err) {
+    throw new Error("Google Script returned invalid JSON: " + text.slice(0, 300));
+  }
 
   if (!data || data.status !== "success") {
-    throw new Error("Invalid Google Script data");
+    throw new Error("Invalid Google Script data: " + JSON.stringify(data).slice(0, 300));
   }
 
   return data;
