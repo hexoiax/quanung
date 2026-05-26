@@ -1118,6 +1118,14 @@ textarea {
 
 #zoomPrev { left: 14px; }
 #zoomNext { right: 14px; }
+    #zoomOverlay {
+  touch-action: pan-y;
+}
+
+#zoomImage {
+  transition: transform 0.2s ease;
+  touch-action: none;
+}
     
   </style>
 
@@ -1262,9 +1270,9 @@ textarea {
   </main>
 
   <div id="zoomOverlay" hidden>
-  <button type="button" id="zoomPrev">‹</button>
+  
   <img id="zoomImage" alt="Ảnh phóng to" />
-  <button type="button" id="zoomNext">›</button>
+  
 </div>
 
   <div id="orderPopup" hidden>
@@ -1989,20 +1997,23 @@ textarea {
     function setupImageZoom() {
   const overlay = document.getElementById("zoomOverlay");
   const image = document.getElementById("zoomImage");
-  const prevBtn = document.getElementById("zoomPrev");
-  const nextBtn = document.getElementById("zoomNext");
 
   let zoomImages = [];
   let currentIndex = 0;
+
+  let startX = 0;
+  let endX = 0;
 
   function openZoom(imgEl) {
     zoomImages = Array.from(document.querySelectorAll(".zoomable-image"))
       .filter(img => img.src);
 
     currentIndex = zoomImages.findIndex(img => img.src === imgEl.src);
+
     if (currentIndex < 0) currentIndex = 0;
 
-    image.src = zoomImages[currentIndex].src;
+    showImage(currentIndex);
+
     overlay.hidden = false;
   }
 
@@ -2010,13 +2021,19 @@ textarea {
     if (!zoomImages.length) return;
 
     currentIndex = (index + zoomImages.length) % zoomImages.length;
-    image.src = zoomImages[currentIndex].src;
+
+    image.style.opacity = "0";
+
+    setTimeout(() => {
+      image.src = zoomImages[currentIndex].src;
+      image.style.opacity = "1";
+    }, 120);
   }
 
   document.addEventListener("click", e => {
     const target = e.target;
 
-    if (target.classList && target.classList.contains("zoomable-image")) {
+    if (target.classList?.contains("zoomable-image")) {
       openZoom(target);
     }
 
@@ -2026,14 +2043,27 @@ textarea {
     }
   });
 
-  prevBtn?.addEventListener("click", e => {
-    e.stopPropagation();
-    showImage(currentIndex - 1);
+  image.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
   });
 
-  nextBtn?.addEventListener("click", e => {
-    e.stopPropagation();
-    showImage(currentIndex + 1);
+  image.addEventListener("touchmove", e => {
+    endX = e.touches[0].clientX;
+  });
+
+  image.addEventListener("touchend", () => {
+    const diff = startX - endX;
+
+    if (Math.abs(diff) < 40) return;
+
+    if (diff > 0) {
+      showImage(currentIndex + 1);
+    } else {
+      showImage(currentIndex - 1);
+    }
+
+    startX = 0;
+    endX = 0;
   });
 }
 
