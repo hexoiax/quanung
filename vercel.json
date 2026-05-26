@@ -44,11 +44,5 @@
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
-  ],
-  "crons": [
-    {
-      "path": "/api/sync-data",
-      "schedule": "*/5 * * * *"
-    }
   ]
 }
