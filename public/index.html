@@ -1100,6 +1100,24 @@ textarea {
   border: 1px solid #e2e8f0;
   background: #f8fafc;
 }
+
+    #zoomPrev,
+#zoomNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 900;
+  z-index: 2;
+}
+
+#zoomPrev { left: 14px; }
+#zoomNext { right: 14px; }
     
   </style>
 
@@ -1244,8 +1262,10 @@ textarea {
   </main>
 
   <div id="zoomOverlay" hidden>
-    <img id="zoomImage" alt="Ảnh phóng to" />
-  </div>
+  <button type="button" id="zoomPrev">‹</button>
+  <img id="zoomImage" alt="Ảnh phóng to" />
+  <button type="button" id="zoomNext">›</button>
+</div>
 
   <div id="orderPopup" hidden>
     <div id="orderPopupBox">
@@ -1967,23 +1987,55 @@ textarea {
     }
 
     function setupImageZoom() {
-      const overlay = document.getElementById("zoomOverlay");
-      const image = document.getElementById("zoomImage");
+  const overlay = document.getElementById("zoomOverlay");
+  const image = document.getElementById("zoomImage");
+  const prevBtn = document.getElementById("zoomPrev");
+  const nextBtn = document.getElementById("zoomNext");
 
-      document.addEventListener("click", e => {
-        const target = e.target;
+  let zoomImages = [];
+  let currentIndex = 0;
 
-        if (target.classList && target.classList.contains("zoomable-image")) {
-          image.src = target.src;
-          overlay.hidden = false;
-        }
+  function openZoom(imgEl) {
+    zoomImages = Array.from(document.querySelectorAll(".zoomable-image"))
+      .filter(img => img.src);
 
-        if (target.id === "zoomOverlay") {
-          overlay.hidden = true;
-          image.src = "";
-        }
-      });
+    currentIndex = zoomImages.findIndex(img => img.src === imgEl.src);
+    if (currentIndex < 0) currentIndex = 0;
+
+    image.src = zoomImages[currentIndex].src;
+    overlay.hidden = false;
+  }
+
+  function showImage(index) {
+    if (!zoomImages.length) return;
+
+    currentIndex = (index + zoomImages.length) % zoomImages.length;
+    image.src = zoomImages[currentIndex].src;
+  }
+
+  document.addEventListener("click", e => {
+    const target = e.target;
+
+    if (target.classList && target.classList.contains("zoomable-image")) {
+      openZoom(target);
     }
+
+    if (target.id === "zoomOverlay") {
+      overlay.hidden = true;
+      image.src = "";
+    }
+  });
+
+  prevBtn?.addEventListener("click", e => {
+    e.stopPropagation();
+    showImage(currentIndex - 1);
+  });
+
+  nextBtn?.addEventListener("click", e => {
+    e.stopPropagation();
+    showImage(currentIndex + 1);
+  });
+}
 
     function setupCountdown() {
       const countdown = document.getElementById("countdown");
