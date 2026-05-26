@@ -283,6 +283,7 @@ textarea {
 .product-slide {
   min-width: 100%;
   scroll-snap-align: center;
+  scroll-snap-stop: always;
   background: #fff;
 }
 
@@ -1518,11 +1519,12 @@ textarea {
       track.innerHTML = activeItems.map((item, index) => `
         <div class="product-slide" data-type="${escapeAttr(item.type || "image")}">
           <img
-            src="${escapeAttr(item.url || "")}"
-            alt="${escapeAttr(item.alt || "Ảnh sản phẩm")}"
-            loading="${index === 0 ? "eager" : "lazy"}"
-            decoding="async"
-          />
+  src="${escapeAttr(item.url || "")}"
+  alt="${escapeAttr(item.alt || "Ảnh sản phẩm")}"
+  class="zoomable-image"
+  loading="${index === 0 ? "eager" : "lazy"}"
+  decoding="async"
+/>
           <p>${escapeHTML(item.caption || "")}</p>
         </div>
       `).join("");
