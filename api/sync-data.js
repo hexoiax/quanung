@@ -7,10 +7,20 @@ const CACHE_KEY = "LANDING_DATA_V3";
 const BACKUP_KEY = "LANDING_DATA_V3_BACKUP";
 
 export default async function handler(req, res) {
-  res.setHeader("Cache-Control", "no-store");
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+
+  if (req.method !== "GET" && req.method !== "POST") {
+    return res.status(405).json({
+      status: "error",
+      message: "Method Not Allowed"
+    });
+  }
 
   try {
-    const secret = req.headers["x-sync-secret"] || req.query.secret;
+    const secret =
+      req.headers["x-sync-secret"] ||
+      req.headers["authorization"]?.replace("Bearer ", "") ||
+      req.query.secret;
 
     if (SYNC_SECRET && secret !== SYNC_SECRET) {
       return res.status(401).json({
@@ -23,7 +33,7 @@ export default async function handler(req, res) {
 
     const payload = {
       ...freshData,
-      cache_source: "redis_cron_sync",
+      cache_source: "redis_apps_script_sync",
       synced_at: new Date().toISOString()
     };
 
@@ -38,12 +48,15 @@ export default async function handler(req, res) {
     return res.status(200).json({
       status: "success",
       message: "Landing data synced",
+      cache_source: payload.cache_source,
+      source_updated_at: freshData.updated_at || null,
       synced_at: payload.synced_at,
       cache_key: CACHE_KEY,
       backup_key: BACKUP_KEY
     });
-
   } catch (err) {
+    console.error("SYNC DATA ERROR:", err);
+
     return res.status(500).json({
       status: "error",
       message: "Sync failed",
@@ -77,18 +90,31 @@ async function fetchFromGoogleScript() {
     throw new Error("Missing GOOGLE_SCRIPT_URL env");
   }
 
-  const response = await fetch(`${GOOGLE_SCRIPT_URL}?route=data`, {
-    method: "GET"
+  const url = `${GOOGLE_SCRIPT_URL}?route=data&t=${Date.now()}`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json"
+    }
   });
 
+  const text = await response.text();
+
   if (!response.ok) {
-    throw new Error(`Google Script fetch failed: ${response.status}`);
+    throw new Error(`Google Script fetch failed: ${response.status} - ${text}`);
   }
 
-  const data = await response.json();
+  let data;
+
+  try {
+    data = JSON.parse(text);
+  } catch (err) {
+    throw new Error("Google Script returned invalid JSON: " + text.slice(0, 300));
+  }
 
   if (!data || data.status !== "success") {
-    throw new Error("Invalid Google Script data");
+    throw new Error("Invalid Google Script data: " + JSON.stringify(data).slice(0, 300));
   }
 
   return data;
